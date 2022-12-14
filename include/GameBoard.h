@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 typedef struct {
-  char *board;
-  int columns, rows;
+    char *board;
+    int columns, rows;
 } GameBoard;
 
 GameBoard GameBoardCreate(int columns, int rows);
