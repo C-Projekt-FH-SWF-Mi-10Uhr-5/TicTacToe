@@ -1,11 +1,11 @@
 
-#include "Game.h"
-#include "GameBoard.h"
-#include "ViewMenu.h"
+#include "../include/Game.h"
+#include "../include/GameBoard.h"
+#include "../include/ViewMenu.h"
 
 int main(int argc, char *argv[]) {
 
-    GameBoard gb = GameBoardCreate(3, 4);
+    GameBoard gb = GameBoardCreate(3, 3);
 
     // GameBoardClear(gb);
 
@@ -21,17 +21,17 @@ int main(int argc, char *argv[]) {
     GameBoardSet(gb, 1, 2, '8');
     GameBoardSet(gb, 2, 2, '9');
 
-    GameBoardSet(gb, 0, 3, 'A');
+    /*GameBoardSet(gb, 0, 3, 'A');
     GameBoardSet(gb, 1, 3, 'B');
-    GameBoardSet(gb, 2, 3, 'C');
+    GameBoardSet(gb, 2, 3, 'C');*/
 
-    GameBoardPrint(gb);
+    //GameBoardPrint(gb);
 
-    printf("\n");
+    /*printf("\n");
 
     for (int i = 0; i < (gb.columns * gb.rows); i++) {
         printf(" %c ", *(gb.board + (i)));
-    }
+    }*/
 
     GameBoardDestroy(&gb);
 

@@ -1,8 +1,8 @@
 
-#include "ViewBoard.h"
+#include "../include/ViewBoard.h"
 
-#include "Game.h"
-#include "ViewMenu.h"
+#include "../include/Game.h"
+#include "../include/ViewMenu.h"
 
 #include <curses.h>
 
