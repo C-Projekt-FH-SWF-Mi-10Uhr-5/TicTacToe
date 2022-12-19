@@ -47,12 +47,12 @@ void ViewBoardPressedKeyCall(int pressedKey) {
 
     if (ViewBoardX < 0) {
         ViewBoardX = ViewBoardGB.columns - 1;
-    } else if (ViewBoardX > ViewBoardGB.columns) {
+    } else if (ViewBoardX > ViewBoardGB.columns-1) {
         ViewBoardX = 0;
     }
     if (ViewBoardY < 0) {
         ViewBoardY = ViewBoardGB.rows - 1;
-    } else if (ViewBoardY > ViewBoardGB.rows) {
+    } else if (ViewBoardY > ViewBoardGB.rows-1) {
         ViewBoardY = 0;
     }
 }
