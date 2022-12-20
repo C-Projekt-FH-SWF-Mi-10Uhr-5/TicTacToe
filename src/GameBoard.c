@@ -1,4 +1,4 @@
-#include <GameBoard.h>
+#include "../include/GameBoard.h"
 
 GameBoard GameBoardCreate(int columns, int rows) {
     GameBoard gb;

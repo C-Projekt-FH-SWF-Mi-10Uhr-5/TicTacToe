@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <curses.h>
+
 typedef struct {
     void (*pressedKeyCall)(int pressedKey);
     void (*paintCall)();

@@ -1,7 +1,6 @@
 
+#include "../include/Game.h"
 #include <curses.h>
-
-#include "Game.h"
 
 Game *GameGet() {
     static Game game;

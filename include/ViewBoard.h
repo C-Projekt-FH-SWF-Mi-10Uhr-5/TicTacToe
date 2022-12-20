@@ -1,7 +1,8 @@
 #ifndef VIEWBOARD_H
 #define VIEWBOARD_H
 
-#include <GameBoard.h>
+#include "../include/GameBoard.h"
+#include <curses.h>
 
 void ViewBoardSetGameBoard(GameBoard gameBoard);
 
