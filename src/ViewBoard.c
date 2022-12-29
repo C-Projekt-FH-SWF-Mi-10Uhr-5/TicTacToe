@@ -6,11 +6,11 @@
 
 #include <curses.h>
 
-char ViewBoardAusgabe = ' ';
-int ViewBoardX, ViewBoardY;
-GameBoard ViewBoardGB;
+char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
+int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
+GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 
-void ViewBoardSetGameBoard(GameBoard gameBoard) { ViewBoardGB = gameBoard; }
+void ViewBoardSetGameBoard(GameBoard gameBoard) { ViewBoardGB = gameBoard; }// Setzte das Spielbrett in die Darstellung
 
 void ViewBoardPressedKeyCall(int pressedKey) {
 
@@ -32,11 +32,11 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         ViewBoardX++;
         break;
     case 'q':
-        GameGet()->quit = 1;
+        GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
         break;
     case KEY_BACKSPACE:
-        GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;
-        GameGet()->paintCall = ViewMenuPaintCall;
+        GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
+        GameGet()->paintCall = ViewMenuPaintCall;// Setze die Methode ViewBoardPaintCall um das Hauptmenue darzustellen
         break;
     case KEY_ENTER:
     case ' ':
@@ -57,7 +57,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     }
 }
 
-void ViewBoardPaintCall() {
+void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellung)
     mvprintw(0, 0, "Steuern mit Pfeiltasten, Beenden mit 'q'");
     mvprintw(3, 5, "%c", ViewBoardAusgabe);
 
@@ -88,5 +88,5 @@ void ViewBoardPaintCall() {
         row++;
         col = 5;
     }
-    mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');
+    mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das Ausgewaelte Element an
 }
