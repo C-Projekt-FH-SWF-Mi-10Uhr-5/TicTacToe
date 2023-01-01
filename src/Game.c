@@ -3,8 +3,8 @@
 #include <curses.h>
 
 Game *GameGet() {
-    static Game game;
-    return &game;
+    static Game game;// Erstelle eine Statische Strucktur vom Typ Spiel (Siehe Singelton)
+    return &game;// Gib den Pointer auf die Statische Spiel Struktur zurueck
 }
 
 void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
@@ -37,7 +37,8 @@ void GameStart() {
 
     Game *game = GameGet();
 
-    while (!game->quit) {
+    while (!game->quit) {// Game Loop
+
         // ===== Benutzereingaben =====
 
         pressedKey = getch(); // Eingabe einlesen
@@ -45,16 +46,17 @@ void GameStart() {
         if (pressedKey == ERR) {
             napms(10); // Pause in Millisekunden
         } else {
-            (*game->pressedKeyCall)(pressedKey);
+            (*game->pressedKeyCall)(pressedKey);// Funktionspointer aufruf fuer den Tasten input
         }
 
         // ===== Ausgabe =====
 
         erase(); // Fensterinhalt leeren
 
-        (*game->paintCall)();
+        (*game->paintCall)();// Funktionspointer aufruf fuer die Grafig ausgabe
 
         refresh(); // Fensterinhalt aktualisieren
+
     }
 }
 
