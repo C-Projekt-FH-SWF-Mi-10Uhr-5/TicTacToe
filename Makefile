@@ -1,11 +1,14 @@
-output: main.o Game.o GameBoard.o ViewBoard.o ViewMenu.o
-	gcc main.o Game.o GameBoard.o ViewBoard.o ViewMenu.o -lncurses -o TicTacToe
+output: main.o Game.o GameAI.o GameBoard.o ViewBoard.o ViewMenu.o
+	gcc main.o Game.o GameAI.o GameBoard.o ViewBoard.o ViewMenu.o -lncurses -o TicTacToe
 
 main.o: #main.c
 	gcc -c src/main.c 
 
 Game.o: #Game.c
 	gcc -c src/Game.c 
+
+GameAI.o: #GameAI.c
+	gcc -c src/GameAI.c
 
 GameBoard.o: #GameBoard.c
 	gcc -c src/GameBoard.c

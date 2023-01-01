@@ -28,7 +28,7 @@
 #include <stdlib.h>
 
 /**
- * @brief Die Strucktur GameBoard stellet ein Spielbrett dar.
+ * @brief Die Struktur GameBoard stellet ein Spielbrett dar.
  */
 typedef struct {
     char *board;
