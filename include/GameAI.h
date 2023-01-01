@@ -17,6 +17,6 @@ void ComputerPlacement(GameBoard gb);
 
 void PlayerPlacement(GameBoard gb, int ViewBoardY, int ViewBoardX);
 
-int CheckWinner(GameBoard gb);
+int CheckWinner(GameBoard gb, char c);
 
 #endif
