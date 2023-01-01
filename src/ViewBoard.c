@@ -12,11 +12,11 @@ char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter
 int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
 GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) oder noch frei ist (=0)
+char Winner=0; //Gewinner Variable
 
 void ViewBoardSetGameBoard(GameBoard gameBoard) { ViewBoardGB = gameBoard; }// Setzte das Spielbrett in die Darstellung
 
 void ViewBoardPressedKeyCall(int pressedKey) {
-
     switch (pressedKey) {
     case KEY_UP:
         ViewBoardAusgabe = '^';
@@ -44,6 +44,9 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     case KEY_ENTER:
     case ' ':
     case '\n':
+        if(Winner != 0) {
+            return;
+        }
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
             PlayerPlacement(ViewBoardGB, ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
@@ -52,10 +55,6 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         else {
             CheckPlacedSlot=1; //Ist das Feld nicht frei, wird ein Fehlerwert uebergeben
         }
-        //Versuch einer Win/Lose Bedingung, leider gescheitert
-        /*if(CheckWinner(ViewBoardGB) != 0) {
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
-        }*/
         break;
     }
 
@@ -102,15 +101,24 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         row++;
         col = 5;
     }
-    mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
+    if(Winner == 0) {
+        mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
+        //Ueberpruefung, ob es einen Gewinner gibt; ist dies der Fall, wird die Methode gestoppt
+        if(CheckWinner(ViewBoardGB, 'X') == 1) {
+            Winner='X';
+        }
+        else if(CheckWinner(ViewBoardGB, 'O') == 1) {
+            Winner='O';
+        }
+    }
     if(CheckPlacedSlot == 1) { //Gebe eine Fehlermeldung aus, wenn das ausgewaehlte Feld bereits besetzt ist
         mvprintw(1, 0, "Fehlerhafte Eingabe, versuche erneut");
     }
     //Versuch einer Win/Lose Ausgabe:
-    /*if(CheckWinner(ViewBoardGB) == 1) { //==1 bedeutet, dass der Spieler gewonnen hat
-        mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch!");
+    if(Winner == 'X') { //bedeutet, dass der Spieler gewonnen hat
+        mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch! Verlassen mit 'q'");
     }
-    if(CheckWinner(ViewBoardGB) == 2) { //==2 bedeutet, dass der Computer gewonnen hat
-        mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal!");
-    }*/
+    if(Winner == 'O') { //bedeutet, dass der Computer gewonnen hat
+        mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+    }
 }
