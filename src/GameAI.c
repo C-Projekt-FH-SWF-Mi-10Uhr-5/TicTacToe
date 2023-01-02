@@ -40,25 +40,23 @@ void PlayerPlacement(GameBoard gb, int ViewBoardY, int ViewBoardX) { //Zur besse
 
 int CheckWinner(GameBoard gb, char c) { //Funktion die ueberprueft, ob es einen Sieger gibt, GESCHEITERT
     int winner=0;
-    //Player:
-
     //Columns:
     for(int i=0; i<gb.columns; i++) {
-        if(*GameBoardIndexOf(gb, i, 0) == *GameBoardIndexOf(gb, i, 1) == *GameBoardIndexOf(gb, i, 2) == c) {
+        if((*GameBoardIndexOf(gb, i, 0) == c) && (*GameBoardIndexOf(gb, i, 1) == c) && (*GameBoardIndexOf(gb, i, 2) == c)) {
             return 1;
         }
     }
     //Rows:
     for(int i=0; i<gb.rows; i++) {
-        if(*GameBoardIndexOf(gb, 0, i) == *GameBoardIndexOf(gb, 1, i) == *GameBoardIndexOf(gb, 2, i) == c) {
+        if((*GameBoardIndexOf(gb, 0, i) == c) && (*GameBoardIndexOf(gb, 1, i) == c) && (*GameBoardIndexOf(gb, 2, i) == c)) {
             return 1;
         }
     }
     //Diagonale:
-    if(*GameBoardIndexOf(gb, 0, 0) == *GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 2) == c) {
+    if((*GameBoardIndexOf(gb, 0, 0) == c) && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 2) == c)) {
         return 1;
     }
-    if(*GameBoardIndexOf(gb, 0, 2) == *GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 0) == c) {
+    if((*GameBoardIndexOf(gb, 0, 2) == c) && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 0) == c)) {
         return 1;
     }
 }
