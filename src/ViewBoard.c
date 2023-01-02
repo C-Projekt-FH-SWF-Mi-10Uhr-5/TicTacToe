@@ -14,7 +14,10 @@ GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) oder noch frei ist (=0)
 char Winner=0; //Gewinner Variable
 
-void ViewBoardSetGameBoard(GameBoard gameBoard) { ViewBoardGB = gameBoard; }// Setzte das Spielbrett in die Darstellung
+void ViewBoardSetGameBoard(GameBoard gameBoard) {
+    ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
+    Winner=0; //Zuruecksetzen des Gewinners, falls man bereits eine Runde vorher gespielt hat
+}
 
 void ViewBoardPressedKeyCall(int pressedKey) {
     switch (pressedKey) {
@@ -103,7 +106,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     }
     if(Winner == 0) {
         mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
-        //Ueberpruefung, ob es einen Gewinner gibt; ist dies der Fall, wird die Methode gestoppt
+        //Ueberpruefung, ob es einen Gewinner gibt
         if(CheckWinner(ViewBoardGB, 'X') == 1) {
             Winner='X';
         }
