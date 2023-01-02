@@ -1,7 +1,7 @@
 #include "../include/GameBoard.h"
 
 GameBoard GameBoardCreate(int columns, int rows) {
-    GameBoard gb;// Erstelle ein Spielbrett
+    GameBoard gb;// Erstelle ein Spielbrett //asdsabhdbhdbh
     gb.columns = columns;// Setze die Anzahl der Spalten
     gb.rows = rows;// Setze die Anzahl der Zeilen
     gb.board = (char *)malloc(sizeof(char) * columns * rows);// Fordere den Speicher fuer das Spielbrett an
