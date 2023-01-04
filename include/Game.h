@@ -28,6 +28,11 @@ typedef struct {
     void (*pressedKeyCall)(int pressedKey);
 
     /**
+     * @brief Funktionspointer zustaendig fuer den Aufruf der Spiellogik
+     */
+    void (*gameLogicCall)();
+
+    /**
      * @brief Funktionspointer zustaendig fuer die Darstellung des spiels
      */
     void (*paintCall)();
