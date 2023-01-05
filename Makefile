@@ -1,5 +1,5 @@
-output: main.o Game.o GameAI.o GameBoard.o ViewBoard.o ViewMenu.o
-	gcc main.o Game.o GameAI.o GameBoard.o ViewBoard.o ViewMenu.o -lncurses -o TicTacToe
+output: main.o Game.o GameAI.o GameBoard.o GameMaster.o Player.o ViewBoard.o ViewMenu.o
+	gcc main.o Game.o GameAI.o GameBoard.o GameMaster.o Player.o ViewBoard.o ViewMenu.o -lncurses -o TicTacToe
 
 main.o: #main.c
 	gcc -c src/main.c 
@@ -13,6 +13,12 @@ GameAI.o: #GameAI.c
 GameBoard.o: #GameBoard.c
 	gcc -c src/GameBoard.c
 
+GameMaster.o: #GameMaster.c
+	gcc -c src/GameMaster.c
+
+Player.o: #Player.c
+	gcc -c src/Player.c
+
 ViewBoard.o: #ViewBoard.c
 	gcc -c src/ViewBoard.c 
 
@@ -20,7 +26,7 @@ ViewMenu.o: #ViewMenu.c
 	gcc -c src/ViewMenu.c
 
 clean:
-	del TicTacToe.exe
 	del *.o
-#	rm TicTacToe.exe
+	del TicTacToe.exe
 #	rm *.o
+#	rm TicTacToe.exe
