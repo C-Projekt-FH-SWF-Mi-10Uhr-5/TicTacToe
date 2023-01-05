@@ -11,7 +11,8 @@
 #ifndef VIEWBOARD_H
 #define VIEWBOARD_H
 
-#include "../include/GameBoard.h"
+#include "GameBoard.h"
+#include "GameMaster.h"
 #include <curses.h>
 
 /**

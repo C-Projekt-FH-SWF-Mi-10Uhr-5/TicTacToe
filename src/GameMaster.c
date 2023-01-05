@@ -1,22 +1,46 @@
 #include "../include/GameMaster.h"
 
-char activePlayer = '\0';
+#include "../include/Logger.h"
 
-void GameMasterNext(PlayerList* list) {
-    Player nextPlayer = GameMasterGetNextPlayer(list);
-    activePlayer = nextPlayer.symbol;
+GameBoard   GameMasterGameBoard;
+PlayerList* GameMasterPlayerList;
+char        GameMasterActivePlayer = '\0';
+char        GameMasterWinner=0; //Gewinner Variable
+
+void GameMasterInit(PlayerList* playerList, GameBoard gameBoard) {
+    GameMasterPlayerList = playerList;
+    GameMasterGameBoard = gameBoard;
+    GameMasterActivePlayer = '\0';
+    GameMasterWinner=0; //Zuruecksetzen des Gewinners, falls man bereits eine Runde vorher gespielt hat
+}
+
+void GameMasterNext() {
+    LOGGER_LOG ("GameMaster", "NEXT")
+    if (GameMasterWinner != 0) {
+        return;
+    }
+    Player nextPlayer = GameMasterGetNextPlayer(GameMasterPlayerList);
+    GameMasterActivePlayer = nextPlayer.symbol;
     GameMasterPlayerCall(nextPlayer);
+    if(CheckWinner(GameMasterGameBoard, nextPlayer.symbol) == 1) {
+        GameMasterWinner = nextPlayer.symbol;
+    }
 }
 
 void GameMasterPlayerCall(Player player) {
-
+    if (player.isNPC) {
+        GameGet()->pressedKeyCall = NULL;
+        ComputerPlacement(GameMasterGameBoard); //Der Computer setzt ein O auf ein leeres Feld
+    } else {
+        GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;
+    }
 }
 
 Player GameMasterGetNextPlayer(PlayerList* list) {
-    if (activePlayer == '\0') {
+    if (GameMasterActivePlayer == '\0') {
         return list->player;
     }
-    PlayerList* element = PlayerListFindOrLast(list, activePlayer);
+    PlayerList* element = PlayerListFindOrLast(list, GameMasterActivePlayer);
     if (element->next != NULL) {
         return list->next->player;
     } else {
@@ -25,5 +49,9 @@ Player GameMasterGetNextPlayer(PlayerList* list) {
 }
 
 char GameMasterGetActivePlayer() {
-    return activePlayer;
+    return GameMasterActivePlayer;
+}
+
+char GameMasterGetWinner() {
+    GameMasterWinner;
 }
