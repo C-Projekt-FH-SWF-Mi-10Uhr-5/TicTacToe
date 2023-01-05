@@ -16,14 +16,19 @@ void GameMasterInit(PlayerList* playerList, GameBoard gameBoard) {
 
 void GameMasterNext() {
     LOGGER_LOG ("GameMaster", "NEXT")
-    if (GameMasterWinner != 0) {
+    if (GameMasterWinner != 0) {//Das spiel ist vorbei (Es gibt einen gewinner)
         GameMasterActivePlayer = '\0';
         return;
     }
-    if(GameMasterActivePlayer != 0 && CheckWinner(GameMasterGameBoard, GameMasterActivePlayer) == 1) {
+    if(GameMasterActivePlayer != 0 && CheckWinner(GameMasterGameBoard, GameMasterActivePlayer) == 1) {//Haben wir einen Gewinner?
         GameMasterWinner = GameMasterActivePlayer;
         LOGGER_START("GameMaster", "log") LOGGER_STR("WINNER ") LOGGER_CHAR(GameMasterWinner) LOGGER_END()
-        GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;
+        GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
+        return;
+    }
+    if (CheckEmptySpaces(GameMasterGameBoard)==0) {//Unentschieden!!
+        GameMasterWinner = ' ';
+        GameMasterActivePlayer = 0;
         return;
     }
     Player nextPlayer = GameMasterGetNextPlayer(GameMasterPlayerList);

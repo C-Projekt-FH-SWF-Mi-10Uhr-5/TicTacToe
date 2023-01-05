@@ -130,4 +130,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     if(Winner == 'O') { //bedeutet, dass der Computer gewonnen hat
         mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
     }
+    if(Winner == ' ') { //bedeutet, dass der Computer gewonnen hat
+        mvprintw(2, 0, "Unentschieden! vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+    }
 }
