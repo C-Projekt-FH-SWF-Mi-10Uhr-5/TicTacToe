@@ -1,0 +1,62 @@
+#include "../include/Player.h"
+
+PlayerList* PlayerListCreate(Player player) {
+    PlayerList* list = (PlayerList *)malloc(sizeof(PlayerList));
+    list->player = player;
+    list->previous = NULL;
+    list->next = NULL;
+    return list;
+}
+
+void PlayerListDestroy(PlayerList** list) {
+    if ((*list)->next != NULL) {
+        PlayerListDestroy(&(*list)->next);
+    }
+    free(*list);
+    (*list) = NULL;
+}
+
+Player* PlayerListAdd(PlayerList* list, char player) {
+    PlayerList* find = PlayerListFindOrLast(list, player);
+    if (find->player.symbol == player) {
+        return &find->player;
+    } else {
+        PlayerList* newElement = (PlayerList *)malloc(sizeof(PlayerList));
+        find->next = newElement;
+        newElement->previous = find;
+        newElement->player.symbol = player;
+        return &newElement->player;
+    }
+}
+
+Player PlayerListRemove(PlayerList** list, char player) {
+    PlayerList* find = PlayerListFindOrLast(*list, player);
+    Player result;
+    result.symbol = '\0';
+    if (find->player.symbol == player) {
+        result = find->player;
+        if (find == *list) {
+            if (find->next != NULL) {
+                (*list) = find->next;
+                find->next->previous = NULL;
+                free(find);
+            }
+        } else {
+            if (find->previous != NULL) {
+                find->previous->next = find->next;
+            }
+            if (find->next != NULL) {
+                find->next->previous = find->previous;
+            }
+            free(find);
+        }
+    }
+    return result;
+}
+
+PlayerList* PlayerListFindOrLast(PlayerList* list, char player) {
+    if (list->player.symbol != player && list->next != NULL) {
+        return PlayerListFindOrLast(list->next, player);
+    }
+    return list;
+}

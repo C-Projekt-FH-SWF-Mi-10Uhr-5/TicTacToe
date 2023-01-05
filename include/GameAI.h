@@ -9,7 +9,7 @@
 #ifndef GAMEAI_H
 #define GAMEAI_H
 
-#include "../include/GameBoard.h"
+#include "GameBoard.h"
 
 int CheckEmptySpaces(GameBoard gb);
 
