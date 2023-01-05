@@ -20,12 +20,15 @@ void GameMasterNext() {
         GameMasterActivePlayer = '\0';
         return;
     }
+    if(GameMasterActivePlayer != 0 && CheckWinner(GameMasterGameBoard, GameMasterActivePlayer) == 1) {
+        GameMasterWinner = GameMasterActivePlayer;
+        LOGGER_START("GameMaster", "log") LOGGER_STR("WINNER ") LOGGER_CHAR(GameMasterWinner) LOGGER_END()
+        GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;
+        return;
+    }
     Player nextPlayer = GameMasterGetNextPlayer(GameMasterPlayerList);
     GameMasterActivePlayer = nextPlayer.symbol;
     GameMasterPlayerCall(nextPlayer);
-    if(CheckWinner(GameMasterGameBoard, nextPlayer.symbol) == 1) {
-        GameMasterWinner = nextPlayer.symbol;
-    }
 }
 
 void GameMasterPlayerCall(Player player) {
