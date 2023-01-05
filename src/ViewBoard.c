@@ -13,18 +13,18 @@ char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter
 int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
 GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) oder noch frei ist (=0)
-char Winner=0; //Gewinner Variable
 
-void ViewBoardSetGameBoard(GameBoard gameBoard) {
+void ViewBoardShow(GameBoard gameBoard) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
-    Winner=0; //Zuruecksetzen des Gewinners, falls man bereits eine Runde vorher gespielt hat
     Player player;
     player.symbol = 'X';
-    player.isNPC = 0;
+    player.kiLevel = 0;
     PlayerList* playerList = PlayerListCreate(player);
     Player* newPlayer = PlayerListAdd(playerList, 'O');
-    newPlayer->isNPC = 1;
+    newPlayer->kiLevel = 1;
     GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
+    GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
+    GameMasterNext();
 }
 
 void ViewBoardPressedKeyCall(int pressedKey) {
@@ -55,13 +55,9 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     case KEY_ENTER:
     case ' ':
     case '\n':
-        if(Winner != 0) {
-            return;
-        }
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
             PlayerPlacement(ViewBoardGB, ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
-            ComputerPlacement(ViewBoardGB, 2); //Der Computer setzt ein O auf ein leeres Feld
             GameMasterNext();
         }
         else {
@@ -113,6 +109,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         row++;
         col = 5;
     }
+    char Winner = GameMasterGetWinner();
     if(Winner == 0) {
         mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
         //Ueberpruefung, ob es einen Gewinner gibt
