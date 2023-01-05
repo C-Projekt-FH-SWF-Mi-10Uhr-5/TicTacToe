@@ -27,6 +27,7 @@ void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
     Game *game = GameGet();
     game->quit = 0;
     game->pressedKeyCall = pressedKeyCall;
+    game->gameLogicCall = NULL;
     game->paintCall = paintCall;
 }
 
@@ -41,12 +42,20 @@ void GameStart() {
 
         // ===== Benutzereingaben =====
 
-        pressedKey = getch(); // Eingabe einlesen
+        if (game->pressedKeyCall != NULL) {
+            pressedKey = getch(); // Eingabe einlesen
 
-        if (pressedKey == ERR) {
-            napms(10); // Pause in Millisekunden
+            if (pressedKey == ERR) {
+                napms(10); // Pause in Millisekunden
+            } else {
+                (*game->pressedKeyCall)(pressedKey);// Funktionspointer aufruf fuer den Tasten input
+            }
         } else {
-            (*game->pressedKeyCall)(pressedKey);// Funktionspointer aufruf fuer den Tasten input
+            napms(10); // Pause in Millisekunden
+        }
+
+        if (game->gameLogicCall != NULL) {
+            (*game->gameLogicCall)();// Funktionspointer aufruf fuer den Aufruf der Spiellogik
         }
 
         // ===== Ausgabe =====

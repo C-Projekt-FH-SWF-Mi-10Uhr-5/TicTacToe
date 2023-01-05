@@ -5,6 +5,7 @@
 #include "../include/ViewMenu.h"
 
 #include "../include/GameAI.h"
+#include "../include/Logger.h"
 
 #include <curses.h>
 
@@ -17,6 +18,13 @@ char Winner=0; //Gewinner Variable
 void ViewBoardSetGameBoard(GameBoard gameBoard) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
     Winner=0; //Zuruecksetzen des Gewinners, falls man bereits eine Runde vorher gespielt hat
+    Player player;
+    player.symbol = 'X';
+    player.isNPC = 0;
+    PlayerList* playerList = PlayerListCreate(player);
+    Player* newPlayer = PlayerListAdd(playerList, 'O');
+    newPlayer->isNPC = 1;
+    GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
 }
 
 void ViewBoardPressedKeyCall(int pressedKey) {
@@ -54,6 +62,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
             PlayerPlacement(ViewBoardGB, ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
             ComputerPlacement(ViewBoardGB, 2); //Der Computer setzt ein O auf ein leeres Feld
+            GameMasterNext();
         }
         else {
             CheckPlacedSlot=1; //Ist das Feld nicht frei, wird ein Fehlerwert uebergeben

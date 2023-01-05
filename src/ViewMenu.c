@@ -35,7 +35,7 @@ void ViewMenuPressedKeyCall(int pressedKey) {
         case '\n':
             switch (ViewMenuMenueIndex) {
             case 0: // Singleplayer
-                ViewBoardSetGameBoard(GameBoardCreate(3, 3));// Erstelle und Setze 3x3 Spielfeld
+                ViewBoardSetGameBoard(GameBoardCreate(3, 3));// Erstelle und Setze 3x3 Spielfeld TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                 GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;// Setze die Methode ViewBoardPressedKeyCall um die Tasteneingabe im Spielbrett entgegenzunehmen
                 GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
                 break;
