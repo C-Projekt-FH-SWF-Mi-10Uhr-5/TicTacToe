@@ -13,7 +13,7 @@
 
 int CheckEmptySpaces(GameBoard gb);
 
-void ComputerPlacement(GameBoard gb);
+void ComputerPlacement(GameBoard gb, int difficulty);
 
 void PlayerPlacement(GameBoard gb, int ViewBoardY, int ViewBoardX);
 

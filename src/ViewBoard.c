@@ -53,7 +53,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
             PlayerPlacement(ViewBoardGB, ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
-            ComputerPlacement(ViewBoardGB); //Der Computer setzt ein O auf ein leeres Feld
+            ComputerPlacement(ViewBoardGB, 2); //Der Computer setzt ein O auf ein leeres Feld
         }
         else {
             CheckPlacedSlot=1; //Ist das Feld nicht frei, wird ein Fehlerwert uebergeben
