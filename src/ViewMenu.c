@@ -3,55 +3,60 @@
 
 #include "../include/Game.h"
 #include "../include/ViewBoard.h"
+#include "../include/ViewSettings.h"
+#include "../include/ViewMultiplayer.h"
 
 #include <curses.h>
 
 char ViewMenuAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
-int ViewMenuMenueIndex = 0;// Das aktuell ausgewaelte Element im Hauptmenue
+int ViewMenuMenueIndex = 0;// Das aktuell ausgewaehlte Element im Hauptmenue
 
 void ViewMenuPressedKeyCall(int pressedKey) {
     switch (pressedKey) {
-    case KEY_UP:
-        ViewMenuAusgabe = '^';
-        ViewMenuMenueIndex--;
-        break;
-    case KEY_DOWN:
-        ViewMenuAusgabe = 'v';
-        ViewMenuMenueIndex++;
-        break;
-    case KEY_LEFT:
-        ViewMenuAusgabe = '<';
-        break;
-    case KEY_RIGHT:
-        ViewMenuAusgabe = '>';
-        break;
-    case 'q':
-        GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
-        break;
-    case KEY_ENTER:
-    case ' ':
-    case '\n':
-        switch (ViewMenuMenueIndex) {
-        case 0: // Singleplayer
-            ViewBoardSetGameBoard(GameBoardCreate(3, 3));// Erstelle und Setze 3x3 Spielfeld TODO: Nicht loeschen vom Spielfeld erzeugt ein speicherloch!!!!!1!!11
-            GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;// Setze die Methode ViewBoardPressedKeyCall um die Tasteneingabe im Spielbrett entgegenzu nehmen
-            GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
+        case KEY_UP:
+            ViewMenuAusgabe = '^';
+            ViewMenuMenueIndex--;
             break;
-        case 1: // Multiplayer
+        case KEY_DOWN:
+            ViewMenuAusgabe = 'v';
+            ViewMenuMenueIndex++;
             break;
-        case 2: // Highscore
+        case KEY_LEFT:
+            ViewMenuAusgabe = '<';
             break;
-        case 3: // Settings
+        case KEY_RIGHT:
+            ViewMenuAusgabe = '>';
             break;
-        case 4: // Exit
-            GameGet()->quit = 1; // Stoppe die Gameloop und beende das Spiel
+        case 'q':
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
             break;
-        }
-        break;
+        case KEY_ENTER:
+        case ' ':
+        case '\n':
+            switch (ViewMenuMenueIndex) {
+            case 0: // Singleplayer
+                ViewBoardShow(GameBoardCreate(3, 3));// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                break;
+            case 1: // Multiplayer
+                GameGet()->pressedKeyCall = ViewMultiplayerPressedKeyCall; //Setze die Methode ViewMultiplayerPressedKeyCall um die Tasteneingabe in den Multiplayer Menue entgegenzunehmen
+                GameGet()->paintCall = ViewMultiplayerPaintCall; //Setze die Methode ViewMultiplayerPaintCall um das Multiplayer Menue darzustellen
+                break;
+            case 2: // Highscore
+                break;
+            case 3: // Settings
+                GameGet()->pressedKeyCall = ViewSettingsPressedKeyCall; //Setze die Methode ViewSettingsPressedKeyCall um die Tasteneingabe in den Einstellungen entgegenzunehmen
+                GameGet()->paintCall = ViewSettingsPaintCall; //Setze die Methode ViewSettingsPaintCall um die Einstellungen darzustellen
+                break;
+            case 4: // Exit
+                GameGet()->quit = 1; // Stoppe die Gameloop und beende das Spiel
+                break;
+            }
+            break;
     }
     if (ViewMenuMenueIndex < 0) {
         ViewMenuMenueIndex = 4;// Springe zum letzten Eintrag
-    } else if (ViewMenuMenueIndex > 4) {
+    } 
+    else if (ViewMenuMenueIndex > 4) {
         ViewMenuMenueIndex = 0;// Springe zum ersten Eintrag
     }
 }
