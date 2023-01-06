@@ -38,9 +38,7 @@ void ViewMultiplayerPressedKeyCall(int pressedKey) {
         case '\n':
             switch(ViewMultiplayerIndex) {
                 case 0: // 2 Spieler
-                    ViewBoardSetGameBoard(GameBoardCreate(3, 3));// Erstelle und Setze 3x3 Spielfeld
-                    GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;// Setze die Methode ViewBoardPressedKeyCall um die Tasteneingabe im Spielbrett entgegenzunehmen
-                    GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
+                    ViewBoardShow(GameBoardCreate(3, 3));// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                     break;
                 case 1: //3 Spieler
                     break;

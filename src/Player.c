@@ -24,6 +24,7 @@ Player* PlayerListAdd(PlayerList* list, char player) {
         PlayerList* newElement = (PlayerList *)malloc(sizeof(PlayerList));
         find->next = newElement;
         newElement->previous = find;
+        newElement->next = NULL;
         newElement->player.symbol = player;
         return &newElement->player;
     }

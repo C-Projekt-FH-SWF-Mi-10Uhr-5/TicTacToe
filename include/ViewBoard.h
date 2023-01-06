@@ -19,7 +19,7 @@
  * @brief Setzt das Spielbrett in die Spielbrett-Darstellung.
  * @param gameBoard
  */
-void ViewBoardSetGameBoard(GameBoard gameBoard);
+void ViewBoardShow(GameBoard gameBoard);
 
 /**
  * @brief Nimmt die Tastatur eingaben fuer die Spielbrett-Darstellung entgegen.

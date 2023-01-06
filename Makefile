@@ -29,10 +29,10 @@ ViewMenu.o: #ViewMenu.c
 	gcc $(USER_DEFINES) -c src/ViewMenu.c
 
 ViewSettings.o: #ViewSetting.c
-	gcc -c src/ViewSettings.c
+	gcc $(USER_DEFINES) -c src/ViewSettings.c
 
 ViewMultiplayer.o: #ViewMultiplayer.c
-	gcc -c src/ViewMultiplayer.c
+	gcc $(USER_DEFINES) -c src/ViewMultiplayer.c
 
 clean:
 	del *.o
