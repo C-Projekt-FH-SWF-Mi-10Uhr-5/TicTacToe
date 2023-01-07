@@ -2,6 +2,7 @@
 #include "../include/ViewMenu.h"
 
 #include "../include/Game.h"
+#include "../include/Player.h"
 #include "../include/ViewBoard.h"
 #include "../include/ViewSettings.h"
 #include "../include/ViewMultiplayer.h"
@@ -35,7 +36,15 @@ void ViewMenuPressedKeyCall(int pressedKey) {
         case '\n':
             switch (ViewMenuMenueIndex) {
             case 0: // Singleplayer
-                ViewBoardShow(GameBoardCreate(3, 3));// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                {
+                    Player player;
+                    player.symbol = 'X';
+                    player.kiLevel = 0;
+                    PlayerList* playerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(playerList, '0');
+                    newPlayer->kiLevel = 2;
+                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                }
                 break;
             case 1: // Multiplayer
                 GameGet()->pressedKeyCall = ViewMultiplayerPressedKeyCall; //Setze die Methode ViewMultiplayerPressedKeyCall um die Tasteneingabe in den Multiplayer Menue entgegenzunehmen

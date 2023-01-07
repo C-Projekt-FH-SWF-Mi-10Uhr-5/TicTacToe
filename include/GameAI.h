@@ -13,9 +13,9 @@
 
 int CheckEmptySpaces(GameBoard gb);
 
-void ComputerPlacement(GameBoard gb, int difficulty);
+void ComputerPlacement(GameBoard gb, char c, int difficulty);
 
-void PlayerPlacement(GameBoard gb, int ViewBoardY, int ViewBoardX);
+void PlayerPlacement(GameBoard gb, char c, int ViewBoardY, int ViewBoardX);
 
 int CheckWinner(GameBoard gb, char c);
 

@@ -13,13 +13,15 @@
 
 #include "GameBoard.h"
 #include "GameMaster.h"
+#include "Player.h"
+
 #include <curses.h>
 
 /**
  * @brief Setzt das Spielbrett in die Spielbrett-Darstellung.
  * @param gameBoard
  */
-void ViewBoardShow(GameBoard gameBoard);
+void ViewBoardShow(GameBoard gameBoard, PlayerList* playerList);
 
 /**
  * @brief Nimmt die Tastatur eingaben fuer die Spielbrett-Darstellung entgegen.
