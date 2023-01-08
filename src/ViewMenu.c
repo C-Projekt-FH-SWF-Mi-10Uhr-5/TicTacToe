@@ -43,11 +43,11 @@ void ViewMenuPressedKeyCall(int pressedKey) {
             case 0: // Singleplayer
                 {
                     Player player;
-                    player.symbol = 'X';
+                    player.symbol = Player1Symbol;
                     player.kiLevel = 0;
                     PlayerList* playerList = PlayerListCreate(player);
-                    Player* newPlayer = PlayerListAdd(playerList, '0');
-                    newPlayer->kiLevel = 2;
+                    Player* newPlayer = PlayerListAdd(playerList, Player2Symbol);
+                    newPlayer->kiLevel = Difficulty;
                     ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                 }
                 break;
@@ -57,7 +57,7 @@ void ViewMenuPressedKeyCall(int pressedKey) {
                     player.symbol = 'X';
                     player.kiLevel = 0;
                     PlayerList* playerList = PlayerListCreate(player);
-                    Player* newPlayer = PlayerListAdd(playerList, '0');
+                    Player* newPlayer = PlayerListAdd(playerList, 'O');
                     newPlayer->kiLevel = 0;
                     ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                 }
