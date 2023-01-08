@@ -43,12 +43,14 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
         break;
     case 'l':
-        GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
-        GameGet()->paintCall = ViewMenuPaintCall;// Setze die Methode ViewBoardPaintCall um das Hauptmenue darzustellen
+        ViewMenuShow();
         break;
     case KEY_ENTER:
     case ' ':
     case '\n':
+        if (GameMasterGetWinner() != 0) {
+            ViewMenuShow();
+        }
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
             PlayerPlacement(ViewBoardGB, GameMasterGetActivePlayer(), ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld

@@ -12,6 +12,11 @@
 char ViewMenuAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
 int ViewMenuMenueIndex = 0;// Das aktuell ausgewaehlte Element im Hauptmenue
 
+void ViewMenuShow() {
+    GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
+    GameGet()->paintCall = ViewMenuPaintCall;// Setze die Methode ViewBoardPaintCall um das Hauptmenue darzustellen
+}
+
 void ViewMenuPressedKeyCall(int pressedKey) {
     switch (pressedKey) {
         case KEY_UP:
