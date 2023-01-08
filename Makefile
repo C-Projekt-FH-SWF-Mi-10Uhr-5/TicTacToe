@@ -1,5 +1,5 @@
-output: main.o Game.o GameAI.o GameBoard.o GameMaster.o Logger.o Player.o ViewBoard.o ViewMenu.o ViewMultiplayer.o ViewSettings.o
-	gcc main.o Game.o GameAI.o GameBoard.o GameMaster.o Logger.o Player.o ViewBoard.o ViewMenu.o ViewMultiplayer.o ViewSettings.o -lncurses -o TicTacToe
+output: main.o Game.o GameAI.o GameBoard.o GameMaster.o Logger.o Player.o ViewBoard.o ViewHighscore.o ViewMenu.o ViewMultiplayer.o ViewSettings.o
+	gcc main.o Game.o GameAI.o GameBoard.o GameMaster.o Logger.o Player.o ViewBoard.o ViewHighscore.o ViewMenu.o ViewMultiplayer.o ViewSettings.o -lncurses -o TicTacToe
 
 main.o: #main.c
 	gcc $(USER_DEFINES) -c src/main.c 
@@ -24,6 +24,9 @@ Player.o: #Player.c
 
 ViewBoard.o: #ViewBoard.c
 	gcc $(USER_DEFINES) -c src/ViewBoard.c 
+
+ViewHighscore.o: #ViewHighscore.c
+	gcc $(USER_DEFINEs) -c src/ViewHighscore.c
 
 ViewMenu.o: #ViewMenu.c
 	gcc $(USER_DEFINES) -c src/ViewMenu.c
