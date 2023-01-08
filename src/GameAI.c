@@ -93,54 +93,54 @@ void ComputerPlacement(GameBoard gb, char c, int difficulty) { //Sehr rustikale 
     // Prüfe, ob der Spieler in einer Reihe, Spalte oder Diagonale zwei Zeichen (des gleichen wertes) hat und ein leeres Feld
     // Wenn ja, setze das Zeichen auf das leere Feld, um den Gewinn des Spielers zu verhindern
         for(int i=0; i<gb.columns; i++) {
-            if((*GameBoardIndexOf(gb, i, 0) == *GameBoardIndexOf(gb, i, 1)) && (*GameBoardIndexOf(gb, i, 2) == ' ')) {
+            if((*GameBoardIndexOf(gb, i, 0) == *GameBoardIndexOf(gb, i, 1)) && (*GameBoardIndexOf(gb, i, 2) == ' ') && (*GameBoardIndexOf(gb, i, 0) != ' ')) {
             GameBoardSet(gb, i, 2, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, i, 0) == *GameBoardIndexOf(gb, i, 2)) && (*GameBoardIndexOf(gb, i, 1) == ' ')) {
+            else if((*GameBoardIndexOf(gb, i, 0) == *GameBoardIndexOf(gb, i, 2)) && (*GameBoardIndexOf(gb, i, 1) == ' ') && (*GameBoardIndexOf(gb, i, 2) != ' ')) {
             GameBoardSet(gb, i, 1, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, i, 0) == ' ') && (*GameBoardIndexOf(gb, i, 1) == *GameBoardIndexOf(gb, i, 2))) {
+            else if((*GameBoardIndexOf(gb, i, 0) == ' ') && (*GameBoardIndexOf(gb, i, 1) == *GameBoardIndexOf(gb, i, 2)) && (*GameBoardIndexOf(gb, i, 2) != ' ')) {
             GameBoardSet(gb, i, 0, c);
             return;
             }
         }
         for(int i=0; i<gb.rows; i++) {
-            if((*GameBoardIndexOf(gb, 0, i) == *GameBoardIndexOf(gb, 1, i)) && (*GameBoardIndexOf(gb, 2, i) == ' ')) {
+            if((*GameBoardIndexOf(gb, 0, i) == *GameBoardIndexOf(gb, 1, i)) && (*GameBoardIndexOf(gb, 2, i) == ' ') && (*GameBoardIndexOf(gb, i, 0) != ' ')) {
             GameBoardSet(gb, 2, i, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, i) == *GameBoardIndexOf(gb, 2, i)) && (*GameBoardIndexOf(gb,1, i) == ' ')) {
+            else if((*GameBoardIndexOf(gb, 0, i) == *GameBoardIndexOf(gb, 2, i)) && (*GameBoardIndexOf(gb,1, i) == ' ') && (*GameBoardIndexOf(gb, i, 2) != ' ')) {
             GameBoardSet(gb, 1, i, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, i) == ' ') && (*GameBoardIndexOf(gb, 1, i) == *GameBoardIndexOf(gb, 2, i))) {
+            else if((*GameBoardIndexOf(gb, 0, i) == ' ') && (*GameBoardIndexOf(gb, 1, i) == *GameBoardIndexOf(gb, 2, i)) && (*GameBoardIndexOf(gb, i, 2) != ' ')) {
             GameBoardSet(gb, 0, i, c);
             return;
             }
         }
-            if((*GameBoardIndexOf(gb, 0, 0) == *GameBoardIndexOf(gb, 1, 1)) && (*GameBoardIndexOf(gb, 2, 2) == ' ')) {
+            if((*GameBoardIndexOf(gb, 0, 0) == *GameBoardIndexOf(gb, 1, 1)) && (*GameBoardIndexOf(gb, 2, 2) == ' ') && (*GameBoardIndexOf(gb, 0, 0) != ' ')) {
             GameBoardSet(gb, 2, 2, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, 0) == *GameBoardIndexOf(gb, 2, 2)) && (*GameBoardIndexOf(gb, 1, 1) == ' ')) {
+            else if((*GameBoardIndexOf(gb, 0, 0) == *GameBoardIndexOf(gb, 2, 2)) && (*GameBoardIndexOf(gb, 1, 1) == ' ') && (*GameBoardIndexOf(gb, 2, 2) != ' ')) {
             GameBoardSet(gb, 1, 1, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, 0) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 2))) {
+            else if((*GameBoardIndexOf(gb, 0, 0) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 2)) && (*GameBoardIndexOf(gb, 2, 2) != ' ')) {
             GameBoardSet(gb, 0, 0, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, 2) == *GameBoardIndexOf(gb, 1, 1)) && (*GameBoardIndexOf(gb, 2, 0) == ' ')) {
+            else if((*GameBoardIndexOf(gb, 0, 2) == *GameBoardIndexOf(gb, 1, 1)) && (*GameBoardIndexOf(gb, 2, 0) == ' ') && (*GameBoardIndexOf(gb, 0, 2) != ' ')) {
             GameBoardSet(gb, 2, 0, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, 2) == *GameBoardIndexOf(gb, 2, 0)) && (*GameBoardIndexOf(gb, 1, 1) == ' ')) {
+            else if((*GameBoardIndexOf(gb, 0, 2) == *GameBoardIndexOf(gb, 2, 0)) && (*GameBoardIndexOf(gb, 1, 1) == ' ') && (*GameBoardIndexOf(gb, 0, 2) != ' ')) {
             GameBoardSet(gb, 1, 1, c);
             return;
             }
-            else if((*GameBoardIndexOf(gb, 0, 2) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 0))) {
+            else if((*GameBoardIndexOf(gb, 0, 2) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == *GameBoardIndexOf(gb, 2, 0)) && (*GameBoardIndexOf(gb, 1, 1) != ' ')) {
             GameBoardSet(gb, 0, 2, c);
             return;
             }
