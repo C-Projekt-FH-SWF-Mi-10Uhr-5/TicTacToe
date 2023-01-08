@@ -12,10 +12,12 @@
 char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
 int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
 GameBoard ViewBoardGB;// Das darzustellende Spielbrett
+PlayerList* ViewBoardPL;
 int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) oder noch frei ist (=0)
 
 void ViewBoardShow(GameBoard gameBoard, PlayerList* playerList) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
+    ViewBoardPL = playerList;
     CheckPlacedSlot=0;
     GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
     GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
@@ -50,7 +52,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     case ' ':
     case '\n':
         if (GameMasterGetWinner() != 0) {
-            if(GameMasterGetWinnerKiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
+            if(GameMasterGetWinnerAiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
                 ViewMenuShow();
                 return;
             }
@@ -84,7 +86,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
 }
 
 void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellung)
-    mvprintw(0, 0, "Steuern mit Pfeiltasten, Beenden mit 'q'");
+    mvprintw(0, 0, "Steuern mit Pfeiltasten, Verlassen mit 'l', Beenden mit 'q'");
     mvprintw(3, 5, "%c", ViewBoardAusgabe);
 
     int row = 5;
@@ -117,16 +119,24 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     }
     
     //Statistik des 1. Spielers (linke Seite):
-    mvprintw(5,0, "Spieler 1");
+    Player player1 = ViewBoardPL->player;
+    mvprintw(5, 0, "Spieler %c", player1.symbol);
     //mvprintw(5,10, "12345");
-    mvprintw(6, 0, "Wins: %c", '-');
+    if(player1.aiLevel!=0)
+        mvprintw(6, 0, "AI: %d", player1.aiLevel);
+    else
+        mvprintw(6, 0, "Wins: %d", player1.wins);
     mvprintw(7, 0, "Games: %c", '-');
     mvprintw(8, 0, "Time: %c", '-');
 
     //Statistik des 2. Spielers (rechte Seite):
+    Player player2 = ViewBoardPL->next->player;
     //mvprintw(5,20, "12345");
-    mvprintw(5, 26, "Spieler 2");
-    mvprintw(6, 26, "Wins: %c", '-');
+    mvprintw(5, 26, "Spieler %c", player2.symbol);
+    if(player2.aiLevel!=0)
+        mvprintw(6, 26, "AI: %d", player2.aiLevel);
+    else
+        mvprintw(6, 26, "Wins: %d", player2.wins);
     mvprintw(7, 26, "Games: %c", '-');
     mvprintw(8, 26, "Time: %c", '-');
 
@@ -141,14 +151,14 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         mvprintw(5 + (ViewBoardY * 2), 15 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
     } else {
         //Versuch einer Win/Lose Ausgabe:
-        if(GameMasterGetWinnerKiLevel() == 0) { //bedeutet, dass der Spieler gewonnen hat
-            mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch! Verlassen mit 'q'");
+        if(GameMasterGetWinnerAiLevel() == 0) { //bedeutet, dass der Spieler gewonnen hat
+            mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch! Weiter mit 'ENTER'");
         }
-        if(GameMasterGetWinnerKiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
-            mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+        if(GameMasterGetWinnerAiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
+            mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Weiter mit 'ENTER'");
         }
         if(Winner == ' ') { //bedeutet, dass keiner gewonnen hat
-            mvprintw(2, 0, "Unentschieden! vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+            mvprintw(2, 0, "Unentschieden! vielleicht klappt es beim naechsten Mal! Weiter mit 'ENTER'");
         }
     }
 }

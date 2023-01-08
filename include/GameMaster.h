@@ -31,6 +31,6 @@ char GameMasterGetActivePlayer();
 
 char GameMasterGetWinner();
 
-int GameMasterGetWinnerKiLevel();
+int GameMasterGetWinnerAiLevel();
 
 #endif

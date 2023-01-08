@@ -16,7 +16,10 @@
 
 typedef struct {
     char symbol;
-    int kiLevel;
+    int aiLevel;
+
+    int wins;
+
 } Player;
 
 typedef struct PlayerListStruct {

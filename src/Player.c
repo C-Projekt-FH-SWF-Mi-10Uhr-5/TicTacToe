@@ -26,6 +26,8 @@ Player* PlayerListAdd(PlayerList* list, char player) {
         newElement->previous = find;
         newElement->next = NULL;
         newElement->player.symbol = player;
+        newElement->player.aiLevel = 0;
+        newElement->player.wins = 0;
         return &newElement->player;
     }
 }

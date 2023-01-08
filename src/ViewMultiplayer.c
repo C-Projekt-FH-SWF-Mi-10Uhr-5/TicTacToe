@@ -41,10 +41,10 @@ void ViewMultiplayerPressedKeyCall(int pressedKey) {
                     {
                         Player player;
                         player.symbol = 'X';
-                        player.kiLevel = 0;
+                        player.aiLevel = 0;
                         PlayerList* playerList = PlayerListCreate(player);
                         Player* newPlayer = PlayerListAdd(playerList, '0');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                     }
                     break;
@@ -52,12 +52,12 @@ void ViewMultiplayerPressedKeyCall(int pressedKey) {
                     {
                         Player player;
                         player.symbol = '1';
-                        player.kiLevel = 0;
+                        player.aiLevel = 0;
                         PlayerList* playerList = PlayerListCreate(player);
                         Player* newPlayer = PlayerListAdd(playerList, '2');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         newPlayer = PlayerListAdd(playerList, '3');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         ViewBoardShow(GameBoardCreate(4, 4), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                     }
                     break;
@@ -65,14 +65,14 @@ void ViewMultiplayerPressedKeyCall(int pressedKey) {
                     {
                         Player player;
                         player.symbol = '1';
-                        player.kiLevel = 0;
+                        player.aiLevel = 0;
                         PlayerList* playerList = PlayerListCreate(player);
                         Player* newPlayer = PlayerListAdd(playerList, '2');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         newPlayer = PlayerListAdd(playerList, '3');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         newPlayer = PlayerListAdd(playerList, '4');
-                        newPlayer->kiLevel = 0;
+                        newPlayer->aiLevel = 0;
                         ViewBoardShow(GameBoardCreate(5, 5), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
                     }
                     break;

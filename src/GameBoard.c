@@ -1,5 +1,7 @@
 #include "../include/GameBoard.h"
 
+#include "../include/Logger.h"
+
 GameBoard GameBoardCreate(int columns, int rows) {
     GameBoard gb;// Erstelle ein Spielbrett 
     gb.columns = columns;// Setze die Anzahl der Spalten
@@ -26,6 +28,7 @@ void GameBoardClear(GameBoard gb) {// Setze alle Zeichen auf leer
 
 void GameBoardSet(GameBoard gb, int column, int row, char c) {
     (*GameBoardIndexOf(gb, column, row)) = c;// Setzt das entsprechende Zeichen an der Entsprechenden Stelle auf dem Spielbrett
+    LOGGER_START("GameBoardSet", "log") LOGGER_STR(" player=") LOGGER_CHAR(c) LOGGER_STR(" column=") LOGGER_INT(column) LOGGER_STR(" row=") LOGGER_INT(row) LOGGER_END()
     // printf("set %d = ( %d *  %d + %d ) %c\n", (column * gb.columns + row),
     // column, gb.columns, row, c);
 }

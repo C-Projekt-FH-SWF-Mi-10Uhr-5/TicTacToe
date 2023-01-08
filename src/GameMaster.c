@@ -34,12 +34,14 @@ void GameMasterNext() {
     if(GameMasterActivePlayer != 0 && CheckWinner(GameMasterGameBoard, GameMasterActivePlayer) == 1) {//Haben wir einen Gewinner?
         GameMasterWinner = GameMasterActivePlayer;
         LOGGER_START("GameMaster", "log") LOGGER_STR("WINNER ") LOGGER_CHAR(GameMasterWinner) LOGGER_END()
+        PlayerListFindOrLast(GameMasterPlayerList, GameMasterWinner)->player.wins++;
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
     if (CheckEmptySpaces(GameMasterGameBoard)==0) {//Unentschieden!!
         GameMasterWinner = ' ';
         GameMasterActivePlayer = 0;
+        LOGGER_START("GameMaster", "log") LOGGER_STR("TIE") LOGGER_END()
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
@@ -49,10 +51,10 @@ void GameMasterNext() {
 }
 
 void GameMasterPlayerCall(Player player) {
-        LOGGER_START("GameMaster", "log") LOGGER_STR("player ") LOGGER_CHAR(player.symbol) LOGGER_INT(player.kiLevel) LOGGER_END()
-    if (player.kiLevel) {
+        LOGGER_START("GameMaster", "log") LOGGER_STR("player ") LOGGER_CHAR(player.symbol) LOGGER_INT(player.aiLevel) LOGGER_END()
+    if (player.aiLevel) {
         GameGet()->pressedKeyCall = NULL;
-        ComputerPlacement(GameMasterGameBoard, player.symbol, player.kiLevel); //Der Computer setzt ein O auf ein leeres Feld
+        ComputerPlacement(GameMasterGameBoard, player.symbol, player.aiLevel); //Der Computer setzt ein O auf ein leeres Feld
         GameMasterNext();
     } else {
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;
@@ -83,10 +85,10 @@ char GameMasterGetWinner() {
     return GameMasterWinner;
 }
 
-int GameMasterGetWinnerKiLevel() {
+int GameMasterGetWinnerAiLevel() {
     if (GameMasterWinner != 0 && GameMasterWinner != ' ') {
         PlayerList* element = PlayerListFindOrLast(GameMasterPlayerList, GameMasterActivePlayer);
-        return element->player.kiLevel;
+        return element->player.aiLevel;
     }
     return -1;
 }
