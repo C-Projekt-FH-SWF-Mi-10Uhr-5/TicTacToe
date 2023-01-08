@@ -61,3 +61,13 @@ PlayerList* PlayerListFindOrLast(PlayerList* list, char player) {
     }
     return list;
 }
+
+void PlayerListSwap(PlayerList* list, char a, char b) {
+    PlayerList* entryA = PlayerListFindOrLast(list, a);
+    PlayerList* entryB = PlayerListFindOrLast(list, b);
+    if (entryA->player.symbol == a && entryB->player.symbol == b) {
+        Player temp = entryB->player;
+        entryB->player = entryA->player;
+        entryA->player = temp;
+    }
+}

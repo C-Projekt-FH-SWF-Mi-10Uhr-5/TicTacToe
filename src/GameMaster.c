@@ -2,16 +2,27 @@
 
 #include "../include/Logger.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 GameBoard   GameMasterGameBoard;
-PlayerList* GameMasterPlayerList;
+PlayerList* GameMasterPlayerList = NULL;
 char        GameMasterActivePlayer = '\0';
 char        GameMasterWinner = 0; //Gewinner Variable
 
 void GameMasterInit(PlayerList* playerList, GameBoard gameBoard) {
     GameMasterPlayerList = playerList;
     GameMasterGameBoard = gameBoard;
+    GameMasterReset();
+}
+
+void GameMasterReset() {
     GameMasterActivePlayer = '\0';
     GameMasterWinner = 0; //Zuruecksetzen des Gewinners, falls man bereits eine Runde vorher gespielt hat
+
+    srand(time(NULL));
+    if (rand()%2)
+        PlayerListSwap(GameMasterPlayerList, GameMasterPlayerList->player.symbol, GameMasterPlayerList->next->player.symbol);
 }
 
 void GameMasterNext() {
