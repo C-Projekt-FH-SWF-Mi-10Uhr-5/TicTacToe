@@ -5,7 +5,7 @@
 #include "../include/Player.h"
 #include "../include/ViewBoard.h"
 #include "../include/ViewSettings.h"
-#include "../include/ViewMultiplayer.h"
+#include "../include/ViewHighscore.h"
 
 #include <curses.h>
 
@@ -65,6 +65,8 @@ void ViewMenuPressedKeyCall(int pressedKey) {
                 }
                 break;
             case 2: // Highscore
+                GameGet()->pressedKeyCall = ViewHighscorePressedKeyCall; //Uebergebe die Tasteneingabe an das Highscore Menue
+                GameGet()->paintCall = ViewHighscorePaintCall; //Lasse das Highscore Menue darstellen
                 break;
             case 3: // Settings
                 GameGet()->pressedKeyCall = ViewSettingsPressedKeyCall; //Setze die Methode ViewSettingsPressedKeyCall um die Tasteneingabe in den Einstellungen entgegenzunehmen

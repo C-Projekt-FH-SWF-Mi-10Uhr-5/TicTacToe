@@ -87,7 +87,8 @@ void ViewBoardPressedKeyCall(int pressedKey) {
 
 void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellung)
     mvprintw(0, 0, "Steuern mit Pfeiltasten, Verlassen mit 'l', Beenden mit 'q'");
-    mvprintw(3, 5, "%c", ViewBoardAusgabe);
+    //mvprintw(3, 5, "%c", ViewBoardAusgabe);
+    mvprintw(3, 8, "Gespielte Spiele: %d", GameMasterGetCurrentPlayedGames());
 
     int row = 5;
     int col = 15;
@@ -122,24 +123,24 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     Player player1 = ViewBoardPL->player;
     mvprintw(5, 0, "Spieler %c", player1.symbol);
     //mvprintw(5,10, "12345");
-    if(player1.aiLevel!=0)
+    if(player1.aiLevel!=0) {
         mvprintw(6, 0, "AI: %d", player1.aiLevel);
-    else
+    }
+    else {
         mvprintw(6, 0, "Wins: %d", player1.wins);
-    mvprintw(7, 0, "Games: %c", '-');
-    mvprintw(8, 0, "Time: %c", '-');
-
+        mvprintw(7, 0, "Time: %c", '-');
+    }
     //Statistik des 2. Spielers (rechte Seite):
     Player player2 = ViewBoardPL->next->player;
     //mvprintw(5,20, "12345");
     mvprintw(5, 26, "Spieler %c", player2.symbol);
-    if(player2.aiLevel!=0)
+    if(player2.aiLevel!=0) {
         mvprintw(6, 26, "AI: %d", player2.aiLevel);
-    else
+    }
+    else {
         mvprintw(6, 26, "Wins: %d", player2.wins);
-    mvprintw(7, 26, "Games: %c", '-');
-    mvprintw(8, 26, "Time: %c", '-');
-
+        mvprintw(7, 26, "Time: %c", '-');
+    }
     if(CheckPlacedSlot == 1) { //Gebe eine Fehlermeldung aus, wenn das ausgewaehlte Feld bereits besetzt ist
         mvprintw(1, 0, "Fehlerhafte Eingabe, versuche erneut");
     } else {

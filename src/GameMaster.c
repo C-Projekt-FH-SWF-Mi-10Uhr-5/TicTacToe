@@ -9,8 +9,10 @@ GameBoard   GameMasterGameBoard;
 PlayerList* GameMasterPlayerList = NULL;
 char        GameMasterActivePlayer = '\0';
 char        GameMasterWinner = 0; //Gewinner Variable
+int         GameMasterCurrentPlayedGames = 0; //Zurzeit gespielte Spiele (Anzeige in ViewBoard) (temporaer)
 
 void GameMasterInit(PlayerList* playerList, GameBoard gameBoard) {
+    GameMasterCurrentPlayedGames = 0; //Zuruecksetzen der zurzeit gespielten Spiele, da sie nur innerhalb einer Session gecounted werden sollen
     GameMasterPlayerList = playerList;
     GameMasterGameBoard = gameBoard;
     GameMasterReset();
@@ -35,6 +37,7 @@ void GameMasterNext() {
         GameMasterWinner = GameMasterActivePlayer;
         LOGGER_START("GameMaster", "log") LOGGER_STR("WINNER ") LOGGER_CHAR(GameMasterWinner) LOGGER_END()
         PlayerListFindOrLast(GameMasterPlayerList, GameMasterWinner)->player.wins++;
+        GameMasterCurrentPlayedGames++; //Zurzeit gespielte Spiele wird um eins erhoeht
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
@@ -42,6 +45,7 @@ void GameMasterNext() {
         GameMasterWinner = ' ';
         GameMasterActivePlayer = 0;
         LOGGER_START("GameMaster", "log") LOGGER_STR("TIE") LOGGER_END()
+        GameMasterCurrentPlayedGames++; //Zurzeit gespielte Spiele wird um eins erhoeht
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
@@ -83,6 +87,10 @@ char GameMasterGetActivePlayer() {
 
 char GameMasterGetWinner() {
     return GameMasterWinner;
+}
+
+int GameMasterGetCurrentPlayedGames() {
+    return GameMasterCurrentPlayedGames;
 }
 
 int GameMasterGetWinnerAiLevel() {

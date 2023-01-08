@@ -31,6 +31,8 @@ char GameMasterGetActivePlayer();
 
 char GameMasterGetWinner();
 
+int GameMasterGetCurrentPlayedGames();
+
 int GameMasterGetWinnerAiLevel();
 
 #endif
