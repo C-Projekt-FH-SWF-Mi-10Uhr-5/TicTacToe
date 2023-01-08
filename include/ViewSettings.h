@@ -27,4 +27,8 @@ void ViewDifficultyPressedKeyCall(int pressedKey);
 
 void ViewDifficultyPaintCall();
 
+void ViewPlayerPressedKeyCall(int pressedKey);
+
+void ViewPlayerPaintCall();
+
 #endif

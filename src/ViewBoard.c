@@ -79,8 +79,9 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     mvprintw(3, 5, "%c", ViewBoardAusgabe);
 
     int row = 5;
-    int col = 5;
+    int col = 15;
 
+    //Printen des Spielboardes:
     for (int i = 0; i < ViewBoardGB.columns; i++) {
         for (int j = 0; j < ViewBoardGB.rows; j++) {
             mvprintw(row, col, "%c", *GameBoardIndexOf(ViewBoardGB, i, j));
@@ -92,7 +93,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         }
         if (i + 1 < ViewBoardGB.rows) {
             row++;
-            col = 5;
+            col = 15;
             for (int j = 0; j < ViewBoardGB.rows; j++) {
                 mvprintw(row, col, "%c", '-'); // 196
                 col++;
@@ -103,8 +104,23 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
             }
         }
         row++;
-        col = 5;
+        col = 15;
     }
+    
+    //Statistik des 1. Spielers (linke Seite):
+    mvprintw(5,0, "Spieler 1");
+    //mvprintw(5,10, "12345");
+    mvprintw(6, 0, "Wins: %c", '-');
+    mvprintw(7, 0, "Games: %c", '-');
+    mvprintw(8, 0, "Time: %c", '-');
+
+    //Statistik des 2. Spielers (rechte Seite):
+    //mvprintw(5,20, "12345");
+    mvprintw(5, 26, "Spieler 2");
+    mvprintw(6, 26, "Wins: %c", '-');
+    mvprintw(7, 26, "Games: %c", '-');
+    mvprintw(8, 26, "Time: %c", '-');
+
     if(CheckPlacedSlot == 1) { //Gebe eine Fehlermeldung aus, wenn das ausgewaehlte Feld bereits besetzt ist
         mvprintw(1, 0, "Fehlerhafte Eingabe, versuche erneut");
     } else {
