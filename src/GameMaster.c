@@ -40,7 +40,7 @@ void GameMasterPlayerCall(Player player) {
         LOGGER_START("GameMaster", "log") LOGGER_STR("player ") LOGGER_CHAR(player.symbol) LOGGER_INT(player.kiLevel) LOGGER_END()
     if (player.kiLevel) {
         GameGet()->pressedKeyCall = NULL;
-        ComputerPlacement(GameMasterGameBoard, player.kiLevel); //Der Computer setzt ein O auf ein leeres Feld
+        ComputerPlacement(GameMasterGameBoard, player.symbol, player.kiLevel); //Der Computer setzt ein O auf ein leeres Feld
         GameMasterNext();
     } else {
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;
@@ -56,10 +56,10 @@ Player GameMasterGetNextPlayer(PlayerList* list) {
     PlayerList* element = PlayerListFindOrLast(list, GameMasterActivePlayer);
     if (element->next != NULL) {
         LOGGER_LOG ("GameMaster", "next")
-        return list->next->player;
-    } else {
+        return element->next->player;
+    } else {// Wir sind am Ende
         LOGGER_LOG ("GameMaster", "player")
-        return list->player;
+        return list->player;// Wieder von vorne
     }
 }
 
@@ -69,4 +69,12 @@ char GameMasterGetActivePlayer() {
 
 char GameMasterGetWinner() {
     return GameMasterWinner;
+}
+
+int GameMasterGetWinnerKiLevel() {
+    if (GameMasterWinner != 0 && GameMasterWinner != ' ') {
+        PlayerList* element = PlayerListFindOrLast(GameMasterPlayerList, GameMasterActivePlayer);
+        return element->player.kiLevel;
+    }
+    return -1;
 }

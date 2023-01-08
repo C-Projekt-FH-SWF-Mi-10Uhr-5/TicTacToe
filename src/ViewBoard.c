@@ -14,14 +14,8 @@ int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
 GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) oder noch frei ist (=0)
 
-void ViewBoardShow(GameBoard gameBoard) {
+void ViewBoardShow(GameBoard gameBoard, PlayerList* playerList) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
-    Player player;
-    player.symbol = 'X';
-    player.kiLevel = 0;
-    PlayerList* playerList = PlayerListCreate(player);
-    Player* newPlayer = PlayerListAdd(playerList, 'O');
-    newPlayer->kiLevel = 1;
     GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
     GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
     GameMasterNext();
@@ -49,15 +43,17 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
         break;
     case 'l':
-        GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
-        GameGet()->paintCall = ViewMenuPaintCall;// Setze die Methode ViewBoardPaintCall um das Hauptmenue darzustellen
+        ViewMenuShow();
         break;
     case KEY_ENTER:
     case ' ':
     case '\n':
+        if (GameMasterGetWinner() != 0) {
+            ViewMenuShow();
+        }
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
-            PlayerPlacement(ViewBoardGB, ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
+            PlayerPlacement(ViewBoardGB, GameMasterGetActivePlayer(), ViewBoardY, ViewBoardX); //Setze ein X auf das entsprechende Feld
             GameMasterNext();
         }
         else {
@@ -110,7 +106,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         row++;
         col = 15;
     }
-
+    
     //Statistik des 1. Spielers (linke Seite):
     mvprintw(5,0, "Spieler 1");
     //mvprintw(5,10, "12345");
@@ -125,28 +121,27 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     mvprintw(7, 26, "Games: %c", '-');
     mvprintw(8, 26, "Time: %c", '-');
 
-    char Winner = GameMasterGetWinner();
-    if(Winner == 0) {
-        mvprintw(5 + (ViewBoardY * 2), 15 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
-        //Ueberpruefung, ob es einen Gewinner gibt
-        if(CheckWinner(ViewBoardGB, 'X') == 1) {
-            Winner='X';
-        }
-        else if(CheckWinner(ViewBoardGB, 'O') == 1) {
-            Winner='O';
-        }
-    }
     if(CheckPlacedSlot == 1) { //Gebe eine Fehlermeldung aus, wenn das ausgewaehlte Feld bereits besetzt ist
         mvprintw(1, 0, "Fehlerhafte Eingabe, versuche erneut");
+    } else {
+        char activePlayer =  GameMasterGetActivePlayer();
+        char buf[22] = "~ ist an der Reihe...\0";
+        buf[0] = activePlayer;
+        mvprintw(1, 0, buf);
     }
-    //Versuch einer Win/Lose Ausgabe:
-    if(Winner == 'X') { //bedeutet, dass der Spieler gewonnen hat
-        mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch! Verlassen mit 'q'");
-    }
-    if(Winner == 'O') { //bedeutet, dass der Computer gewonnen hat
-        mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
-    }
-    if(Winner == ' ') { //bedeutet, dass der Computer gewonnen hat
-        mvprintw(2, 0, "Unentschieden! vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+    char Winner = GameMasterGetWinner();
+    if(Winner == 0) {
+        mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
+    } else {
+        //Versuch einer Win/Lose Ausgabe:
+        if(GameMasterGetWinnerKiLevel() == 0) { //bedeutet, dass der Spieler gewonnen hat
+            mvprintw(2, 0, "WIN! Herzlichen Glueckwunsch! Verlassen mit 'q'");
+        }
+        if(GameMasterGetWinnerKiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
+            mvprintw(2, 0, "LOSE! Schade, vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+        }
+        if(Winner == ' ') { //bedeutet, dass keiner gewonnen hat
+            mvprintw(2, 0, "Unentschieden! vielleicht klappt es beim naechsten Mal! Verlassen mit 'q'");
+        }
     }
 }
