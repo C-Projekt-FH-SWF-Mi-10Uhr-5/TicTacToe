@@ -24,16 +24,13 @@ void ComputerPlacement(GameBoard gb, char c, int difficulty) { //Sehr rustikale 
         srand(time(NULL));
         int column=0;
         int row=0;
-        if(CheckEmptySpaces(gb) > 1) { //Gilt nur, wenn es mehr als 1 freies Feld gibt (Spieler hat den letzten Zug)
+        if(CheckEmptySpaces(gb) > 0) { //Gilt nur, wenn es mehr als 1 freies Feld gibt (Spieler hat den letzten Zug)
             do {
                 row=rand()%3;
                 column=rand()%3;
             } while(*GameBoardIndexOf(gb, column, row) != ' '); //Ist das Feld bereits belegt, wird ein anderes zufaellig ausgewaehlt
 
             GameBoardSet(gb, column, row, c); //Am Ende wird auf ein freies Feld das Symbol gesetzt
-        }
-        else {
-            GameGet()->quit = 1; // Stoppe die Gameloop und beende das Spiel
         }
     } else if(difficulty == 2) {
     // Prüfe, ob der Computer in einer Reihe, Spalte oder Diagonale zwei Zeichen hat und ein leeres Feld
@@ -148,7 +145,7 @@ void ComputerPlacement(GameBoard gb, char c, int difficulty) { //Sehr rustikale 
         srand(time(NULL));
         int column=0;
         int row=0;
-        if(CheckEmptySpaces(gb) > 1) { //Gilt nur, wenn es mehr als 1 freies Feld gibt (Spieler hat den letzten Zug)
+        if(CheckEmptySpaces(gb) > 0) { //Gilt nur, wenn es mehr als 1 freies Feld gibt (Spieler hat den letzten Zug)
             do {
                 row=rand()%3;
                 column=rand()%3;

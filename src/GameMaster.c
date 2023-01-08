@@ -40,6 +40,7 @@ void GameMasterNext() {
     if (CheckEmptySpaces(GameMasterGameBoard)==0) {//Unentschieden!!
         GameMasterWinner = ' ';
         GameMasterActivePlayer = 0;
+        GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
     Player nextPlayer = GameMasterGetNextPlayer(GameMasterPlayerList);
