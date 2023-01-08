@@ -52,8 +52,15 @@ void ViewMenuPressedKeyCall(int pressedKey) {
                 }
                 break;
             case 1: // Multiplayer
-                GameGet()->pressedKeyCall = ViewMultiplayerPressedKeyCall; //Setze die Methode ViewMultiplayerPressedKeyCall um die Tasteneingabe in den Multiplayer Menue entgegenzunehmen
-                GameGet()->paintCall = ViewMultiplayerPaintCall; //Setze die Methode ViewMultiplayerPaintCall um das Multiplayer Menue darzustellen
+                {
+                    Player player;
+                    player.symbol = 'X';
+                    player.kiLevel = 0;
+                    PlayerList* playerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(playerList, '0');
+                    newPlayer->kiLevel = 0;
+                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                }
                 break;
             case 2: // Highscore
                 break;
