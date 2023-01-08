@@ -131,7 +131,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
     }
     char Winner = GameMasterGetWinner();
     if(Winner == 0) {
-        mvprintw(5 + (ViewBoardY * 2), 5 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
+        mvprintw(5 + (ViewBoardY * 2), 15 + (ViewBoardX * 2), "%c", '@');// Zeige das ausgewaehlte Element an
     } else {
         //Versuch einer Win/Lose Ausgabe:
         if(GameMasterGetWinnerKiLevel() == 0) { //bedeutet, dass der Spieler gewonnen hat
