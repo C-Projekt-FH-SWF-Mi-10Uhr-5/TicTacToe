@@ -16,6 +16,7 @@ int CheckPlacedSlot=0; //Wert, der angibt ob ein Feld bereits besetzt ist (=1) o
 
 void ViewBoardShow(GameBoard gameBoard, PlayerList* playerList) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
+    CheckPlacedSlot=0;
     GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
     GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
     GameMasterNext();
@@ -49,7 +50,15 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     case ' ':
     case '\n':
         if (GameMasterGetWinner() != 0) {
-            ViewMenuShow();
+            if(GameMasterGetWinnerKiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
+                ViewMenuShow();
+                return;
+            }
+            CheckPlacedSlot=0;
+            GameBoardClear(ViewBoardGB);
+            GameMasterReset();
+            GameMasterNext();
+            return;
         }
         CheckPlacedSlot=0; //Ruecksetzen des Fehlerwertes
         if(*GameBoardIndexOf(ViewBoardGB, ViewBoardY, ViewBoardX) == ' ') { //Ueberpruefe, ob das Feld frei ist
@@ -125,9 +134,7 @@ void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellu
         mvprintw(1, 0, "Fehlerhafte Eingabe, versuche erneut");
     } else {
         char activePlayer =  GameMasterGetActivePlayer();
-        char buf[22] = "~ ist an der Reihe...\0";
-        buf[0] = activePlayer;
-        mvprintw(1, 0, buf);
+        mvprintw(1, 0, "%c ist an der Reihe...", activePlayer);
     }
     char Winner = GameMasterGetWinner();
     if(Winner == 0) {

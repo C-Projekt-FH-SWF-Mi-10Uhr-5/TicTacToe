@@ -19,6 +19,8 @@
 
 void GameMasterInit(PlayerList* playerList, GameBoard gameBoard);
 
+void GameMasterReset();
+
 void GameMasterNext();
 
 void GameMasterPlayerCall(Player player);
