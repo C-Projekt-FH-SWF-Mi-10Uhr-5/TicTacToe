@@ -118,6 +118,7 @@ void GamePlayed() {
 
 void GameSave() {
     GameSaveGame.playtime = GameGetPlaytime();
+    GameStartTimepoint = clock();
 
     FILE *fp;
     fp = fopen(".tictactoe.save", "wb");
