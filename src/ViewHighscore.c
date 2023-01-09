@@ -34,7 +34,7 @@ void ViewHighscorePaintCall() {
     mvprintw(0, 0, "Steuern mit Pfeiltasten, Beenden mit 'q'");
 
     mvprintw(5, 5, "Gespielte Spiele insgesamt: %d", GameGetPlayedGames());
-    mvprintw(6, 5, "Gewonnene Spiele: %c", '-');
+    mvprintw(6, 5, "Gewonnene Spiele: %d", GameGetWins());
     double playtime = GameGetPlaytime();
     TimePeriod period = GameConvertToPeriod(playtime);
     mvprintw(7, 5, "Spielzeit:");

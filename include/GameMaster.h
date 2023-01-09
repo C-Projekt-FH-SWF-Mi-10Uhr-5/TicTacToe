@@ -35,4 +35,6 @@ int GameMasterGetCurrentPlayedGames();
 
 int GameMasterGetWinnerAiLevel();
 
+void GameMasterSaveWins();
+
 #endif

@@ -102,3 +102,13 @@ int GameMasterGetWinnerAiLevel() {
     }
     return -1;
 }
+
+void GameMasterSaveWins() {
+    PlayerList *RealPlayerList = PlayerGetRealPlayer(GameMasterPlayerList);
+        if(RealPlayerList != NULL) {
+            GameAddWins(RealPlayerList->player.wins);
+        }
+        else {
+            LOGGER_START("ViewBoard", "err") LOGGER_STR("RealPlayerList is empty") LOGGER_END()
+        }
+}

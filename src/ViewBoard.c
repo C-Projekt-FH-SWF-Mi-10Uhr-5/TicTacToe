@@ -43,9 +43,11 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         ViewBoardX++;
         break;
     case 'q':
+        GameMasterSaveWins();
         GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
         break;
     case 'l':
+        GameMasterSaveWins();
         ViewMenuShow();
         break;
     case KEY_ENTER:
@@ -53,6 +55,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     case '\n':
         if (GameMasterGetWinner() != 0) {
             if(GameMasterGetWinnerAiLevel() != 0) { //bedeutet, dass der Computer gewonnen hat
+                GameMasterSaveWins();
                 ViewMenuShow();
                 return;
             }
