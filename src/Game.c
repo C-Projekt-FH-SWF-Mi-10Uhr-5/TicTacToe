@@ -1,6 +1,13 @@
 
 #include "../include/Game.h"
+
 #include <curses.h>
+#include <stdio.h>
+#include <time.h>
+
+clock_t GameStartTimepoint;
+
+SaveGame GameSaveGame;
 
 Game *GameGet() {
     static Game game;// Erstelle eine Statische Strucktur vom Typ Spiel (Siehe Singelton)
@@ -8,6 +15,18 @@ Game *GameGet() {
 }
 
 void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
+    GameStartTimepoint = clock();
+
+    FILE *fp;
+    fp = fopen(".tictactoe.save", "rb");
+    if(fp != NULL) {
+        fread(&GameSaveGame, sizeof(SaveGame), 1, fp);
+    } else {
+        GameSaveGame.playtime = 0.0;
+        GameSaveGame.playedGames = 0;
+    }
+    fclose(fp);
+
     // ===== Konfiguration des Fensters =====
 
     // addch(A_ALTCHARSET);
@@ -40,6 +59,12 @@ void GameStart() {
 
     while (!game->quit) {// Game Loop
 
+        /*if (is_term_resized()) {
+            endwin();
+            refresh();
+            clear();
+        }*/
+
         // ===== Benutzereingaben =====
 
         if (game->pressedKeyCall != NULL) {
@@ -47,10 +72,12 @@ void GameStart() {
 
             if (pressedKey == ERR) {
                 napms(10); // Pause in Millisekunden
-            } else {
+            }
+            else {
                 (*game->pressedKeyCall)(pressedKey);// Funktionspointer aufruf fuer den Tasten input
             }
-        } else {
+        }
+        else {
             napms(10); // Pause in Millisekunden
         }
 
@@ -70,6 +97,63 @@ void GameStart() {
 }
 
 void GameStop() {
+    GameSave();
     // ===== Programmende =====
     endwin(); // Fenster schliessen
+}
+
+int GameGetPlayedGames() {
+    return GameSaveGame.playedGames;
+}
+
+double GameGetPlaytime() {
+    return ( (double) (clock() - GameStartTimepoint) / CLOCKS_PER_SEC ) + GameSaveGame.playtime;
+}
+
+void GamePlayed() {
+    GameSaveGame.playedGames++;
+    GameSave();
+}
+
+void GameSave() {
+    GameSaveGame.playtime = GameGetPlaytime();
+
+    FILE *fp;
+    fp = fopen(".tictactoe.save", "wb");
+    if(fp != NULL) {
+        fwrite(&GameSaveGame, sizeof(SaveGame), 1, fp);
+    }
+    fclose(fp);
+}
+
+TimePeriod GameConvertToPeriod(double d) {
+    TimePeriod period;
+
+    if (d > 86400) {
+        period.days = d / 86400;
+        d = ((int)d) % 86400;
+    }
+    else {
+        period.days = 0;
+    }
+
+    if (d > 3600) {
+        period.hours =  d / 3600;
+        d = ((int)d) % 3600;
+    }
+    else {
+        period.hours = 0;
+    }
+
+    if (d > 60) {
+        period.minutes = d / 60;
+        d = ((int)d) % 60;
+    }
+    else {
+        period.minutes = 0;
+    }
+
+    period.seconds = d;
+
+    return period;
 }

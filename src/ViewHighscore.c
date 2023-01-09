@@ -33,10 +33,27 @@ void ViewHighscorePressedKeyCall(int pressedKey) {
 void ViewHighscorePaintCall() {
     mvprintw(0, 0, "Steuern mit Pfeiltasten, Beenden mit 'q'");
 
-    mvprintw(5, 5, "Gespielte Spiele insgesamt: %c", '-');
+    mvprintw(5, 5, "Gespielte Spiele insgesamt: %d", GameGetPlayedGames());
     mvprintw(6, 5, "Gewonnene Spiele: %c", '-');
-    mvprintw(7, 5, "Spielzeit: %c", '-');
-    mvprintw(8, 5, "Back to Main Menu");
+    double playtime = GameGetPlaytime();
+    TimePeriod period = GameConvertToPeriod(playtime);
+    mvprintw(7, 5, "Spielzeit:");
+    int versatz = 11;
+    if (period.days!=0) {
+        mvprintw(7, 5+versatz, "%d Tage, ", period.days);
+        versatz+=12;
+    }
+    if (period.hours!=0) {
+        mvprintw(7, 5+versatz, "%d Stunden, ", period.hours);
+        versatz+=12;
+    }
+    if (period.minutes!=0) {
+        mvprintw(7, 5+versatz, "%d Minuten, ",period.minutes);
+        versatz+=12;
+    }
+    mvprintw(7, 5+versatz, "%d Sekunden", period.seconds);
+    mvprintw(8, 5, "Spielzeit in Sekunden: %f", playtime);
+    mvprintw(9, 5, "Back to Main Menu");
 
-    mvprintw(ViewHighscoreIndex + 8, 4, ">");// Zeige das Ausgewaehlte Element an
+    mvprintw(ViewHighscoreIndex + 9, 4, ">");// Zeige das Ausgewaehlte Element an
 }

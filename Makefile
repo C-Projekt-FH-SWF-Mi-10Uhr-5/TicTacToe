@@ -26,7 +26,7 @@ ViewBoard.o: #ViewBoard.c
 	gcc $(USER_DEFINES) -c src/ViewBoard.c 
 
 ViewHighscore.o: #ViewHighscore.c
-	gcc $(USER_DEFINEs) -c src/ViewHighscore.c
+	gcc $(USER_DEFINES) -c src/ViewHighscore.c
 
 ViewMenu.o: #ViewMenu.c
 	gcc $(USER_DEFINES) -c src/ViewMenu.c
