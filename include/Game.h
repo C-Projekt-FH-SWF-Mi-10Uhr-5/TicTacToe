@@ -51,6 +51,8 @@ double playtime;
 
 int playedGames;
 
+int wins;
+
 } SaveGame;
 
 
@@ -102,5 +104,9 @@ void GamePlayed();
 void GameSave();
 
 TimePeriod GameConvertToPeriod(double d);
+
+void GameAddWins(int wins);
+
+int GameGetWins();
 
 #endif

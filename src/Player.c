@@ -73,3 +73,15 @@ void PlayerListSwap(PlayerList* list, char a, char b) {
         entryA->player = temp;
     }
 }
+
+PlayerList* PlayerGetRealPlayer(PlayerList* list) {
+    if(list == NULL) { //Existiert die Liste nicht,
+        return NULL; //wird "nichts" zurueckgegeben (Absicherung)
+    }
+    else if(list->player.aiLevel == 0) { //Ist der Spieler ein "echter" Spieler (Schwierigkeit = 0) wird dieser zurueckgegeben
+        return list;
+    }
+    else {
+        return PlayerGetRealPlayer(list->next); //Ansonsten wird der naechste Spieler aus der Liste rekursiv aufgerufen 
+    }
+}

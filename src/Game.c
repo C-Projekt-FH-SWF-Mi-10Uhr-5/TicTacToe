@@ -24,6 +24,7 @@ void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
     } else {
         GameSaveGame.playtime = 0.0;
         GameSaveGame.playedGames = 0;
+        GameSaveGame.wins = 0;
     }
     fclose(fp);
 
@@ -117,6 +118,7 @@ void GamePlayed() {
 
 void GameSave() {
     GameSaveGame.playtime = GameGetPlaytime();
+    GameStartTimepoint = clock();
 
     FILE *fp;
     fp = fopen(".tictactoe.save", "wb");
@@ -156,4 +158,13 @@ TimePeriod GameConvertToPeriod(double d) {
     period.seconds = d;
 
     return period;
+}
+
+void GameAddWins(int wins) {
+    GameSaveGame.wins+=wins;
+    GameSave();
+}
+
+int GameGetWins() {
+    return GameSaveGame.wins;
 }
