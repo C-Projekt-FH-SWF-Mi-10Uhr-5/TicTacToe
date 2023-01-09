@@ -38,6 +38,7 @@ void GameMasterNext() {
         LOGGER_START("GameMaster", "log") LOGGER_STR("WINNER ") LOGGER_CHAR(GameMasterWinner) LOGGER_END()
         PlayerListFindOrLast(GameMasterPlayerList, GameMasterWinner)->player.wins++;
         GameMasterCurrentPlayedGames++; //Zurzeit gespielte Spiele wird um eins erhoeht
+        GamePlayed();
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
@@ -46,6 +47,7 @@ void GameMasterNext() {
         GameMasterActivePlayer = 0;
         LOGGER_START("GameMaster", "log") LOGGER_STR("TIE") LOGGER_END()
         GameMasterCurrentPlayedGames++; //Zurzeit gespielte Spiele wird um eins erhoeht
+        GamePlayed();
         GameGet()->pressedKeyCall = ViewBoardPressedKeyCall;//Gib dem User die moeglichkeit zum handeln.
         return;
     }
