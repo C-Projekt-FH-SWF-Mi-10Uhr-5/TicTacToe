@@ -55,7 +55,7 @@ void ViewSettingsPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fuer
         case '\n':
             switch (ViewSettingsIndex) {
                 case 0: // Einstellungen laden
-                    settingsp = fopen("settings.txt", "r"); //Oeffne die Datei im Lese-Modus
+                    settingsp = fopen(".settings.txt", "r"); //Oeffne die Datei im Lese-Modus
                     if(settingsp != NULL) { //Liest nur die Einstellungen, solange die Datei existiert/es keine Fehler beim Oeffnen der Datei gibt
                         Player1Symbol=fgetc(settingsp); //Das Spielersymbol fuer den 1. Spieler wird auf den ersten Char in der Datei gesetzt
                         fgetc(settingsp); //Verschlucken des Zeilenumbruchs
