@@ -68,7 +68,7 @@ void ViewSettingsPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fuer
                     CheckOperatingSettings = 1; //Gibt einen Wert aus, der in der Anzeige (ViewSettingsPaintCall) das erfolgreiche Laden der Datei bestaetigt
                     break;
                 case 1: // Einstellungen speichern
-                    settingsp = fopen("settings.txt", "w+"); //Oeffne die Datei im Lesen-und-Schreiben-Modus
+                    settingsp = fopen(".settings.txt", "w+"); //Oeffne die Datei im Lesen-und-Schreiben-Modus
                     if(settingsp != NULL) {
                         fprintf(settingsp, "%c\n", Player1Symbol); //Schreiben des 1. Spielersymbols, danach Zeilenumbruch
                         fprintf(settingsp, "%c", Player2Symbol);
