@@ -19,6 +19,8 @@
 
 void GameMasterInit(PlayerList* playerList, GameBoard gameBoard);
 
+void GameMasterReset();
+
 void GameMasterNext();
 
 void GameMasterPlayerCall(Player player);
@@ -28,5 +30,11 @@ Player GameMasterGetNextPlayer(PlayerList* list);
 char GameMasterGetActivePlayer();
 
 char GameMasterGetWinner();
+
+int GameMasterGetCurrentPlayedGames();
+
+int GameMasterGetWinnerAiLevel();
+
+void GameMasterSaveWins();
 
 #endif

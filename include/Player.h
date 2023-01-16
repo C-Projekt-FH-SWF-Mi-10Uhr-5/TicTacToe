@@ -16,7 +16,10 @@
 
 typedef struct {
     char symbol;
-    int kiLevel;
+    int aiLevel;
+
+    int wins;
+
 } Player;
 
 typedef struct PlayerListStruct {
@@ -33,5 +36,7 @@ void PlayerListDestroy(PlayerList** list);
 Player* PlayerListAdd(PlayerList* list, char player);
 Player PlayerListRemove(PlayerList** list, char player);
 PlayerList* PlayerListFindOrLast(PlayerList* list, char player);
+void PlayerListSwap(PlayerList* list, char a, char b);
+PlayerList* PlayerGetRealPlayer(PlayerList* list);
 
 #endif

@@ -44,6 +44,31 @@ typedef struct {
 
 } Game;
 
+
+typedef struct {
+
+double playtime;
+
+int playedGames;
+
+int wins;
+
+} SaveGame;
+
+
+typedef struct {
+
+unsigned int days;
+
+unsigned short hours;
+
+unsigned short minutes;
+
+unsigned short seconds;
+
+} TimePeriod;
+
+
 /**
  * @brief Gibt einen Pinter zurueck der auf die Strucktur vom Typ Game zeigt
  * @return Game*
@@ -69,5 +94,19 @@ void GameStart();
  * auf.
  */
 void GameStop();
+
+int GameGetPlayedGames();
+
+double GameGetPlaytime();
+
+void GamePlayed();
+
+void GameSave();
+
+TimePeriod GameConvertToPeriod(double d);
+
+void GameAddWins(int wins);
+
+int GameGetWins();
 
 #endif

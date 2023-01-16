@@ -26,6 +26,8 @@ Player* PlayerListAdd(PlayerList* list, char player) {
         newElement->previous = find;
         newElement->next = NULL;
         newElement->player.symbol = player;
+        newElement->player.aiLevel = 0;
+        newElement->player.wins = 0;
         return &newElement->player;
     }
 }
@@ -60,4 +62,26 @@ PlayerList* PlayerListFindOrLast(PlayerList* list, char player) {
         return PlayerListFindOrLast(list->next, player);
     }
     return list;
+}
+
+void PlayerListSwap(PlayerList* list, char a, char b) {
+    PlayerList* entryA = PlayerListFindOrLast(list, a);
+    PlayerList* entryB = PlayerListFindOrLast(list, b);
+    if (entryA->player.symbol == a && entryB->player.symbol == b) {
+        Player temp = entryB->player;
+        entryB->player = entryA->player;
+        entryA->player = temp;
+    }
+}
+
+PlayerList* PlayerGetRealPlayer(PlayerList* list) {
+    if(list == NULL) { //Existiert die Liste nicht,
+        return NULL; //wird "nichts" zurueckgegeben (Absicherung)
+    }
+    else if(list->player.aiLevel == 0) { //Ist der Spieler ein "echter" Spieler (Schwierigkeit = 0) wird dieser zurueckgegeben
+        return list;
+    }
+    else {
+        return PlayerGetRealPlayer(list->next); //Ansonsten wird der naechste Spieler aus der Liste rekursiv aufgerufen 
+    }
 }

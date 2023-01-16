@@ -15,6 +15,10 @@
 #include <stdio.h>
 #include <curses.h>
 
+char Player1Symbol; //Spieler 1 Symbol im Spiel
+char Player2Symbol; //Spieler 2 Symbol im Spiel
+int Difficulty; //Schwierigkeit des 2. Spielers, falls Computer-Gegner (Singleplayer)
+
 void ViewSettingsPressedKeyCall(int pressedKey);
 
 void ViewSettingsPaintCall();
@@ -26,5 +30,9 @@ void ViewSymbolPaintCall();
 void ViewDifficultyPressedKeyCall(int pressedKey);
 
 void ViewDifficultyPaintCall();
+
+void ViewPlayerPressedKeyCall(int pressedKey);
+
+void ViewPlayerPaintCall();
 
 #endif

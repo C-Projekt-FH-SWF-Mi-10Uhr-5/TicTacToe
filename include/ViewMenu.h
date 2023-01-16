@@ -12,6 +12,12 @@
 #define VIEWMENU_H
 
 /**
+ * @brief Zeige das Menu an.
+ * 
+ */
+void ViewMenuShow();
+
+/**
  * @brief Nimmt die Tastatur eingaben fuer das Menu entgegen.
  * @param pressedKey
  */

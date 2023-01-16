@@ -2,14 +2,20 @@
 #include "../include/ViewMenu.h"
 
 #include "../include/Game.h"
+#include "../include/Player.h"
 #include "../include/ViewBoard.h"
 #include "../include/ViewSettings.h"
-#include "../include/ViewMultiplayer.h"
+#include "../include/ViewHighscore.h"
 
 #include <curses.h>
 
 char ViewMenuAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
 int ViewMenuMenueIndex = 0;// Das aktuell ausgewaehlte Element im Hauptmenue
+
+void ViewMenuShow() {
+    GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
+    GameGet()->paintCall = ViewMenuPaintCall;// Setze die Methode ViewBoardPaintCall um das Hauptmenue darzustellen
+}
 
 void ViewMenuPressedKeyCall(int pressedKey) {
     switch (pressedKey) {
@@ -35,13 +41,32 @@ void ViewMenuPressedKeyCall(int pressedKey) {
         case '\n':
             switch (ViewMenuMenueIndex) {
             case 0: // Singleplayer
-                ViewBoardShow(GameBoardCreate(3, 3));// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                {
+                    Player player;
+                    player.symbol = Player1Symbol;
+                    player.aiLevel = 0;
+                    player.wins = 0;
+                    PlayerList* playerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(playerList, Player2Symbol);
+                    newPlayer->aiLevel = Difficulty;
+                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                }
                 break;
             case 1: // Multiplayer
-                GameGet()->pressedKeyCall = ViewMultiplayerPressedKeyCall; //Setze die Methode ViewMultiplayerPressedKeyCall um die Tasteneingabe in den Multiplayer Menue entgegenzunehmen
-                GameGet()->paintCall = ViewMultiplayerPaintCall; //Setze die Methode ViewMultiplayerPaintCall um das Multiplayer Menue darzustellen
+                {
+                    Player player;
+                    player.symbol = Player1Symbol;
+                    player.aiLevel = 0;
+                    player.wins = 0;
+                    PlayerList* playerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(playerList, Player2Symbol);
+                    newPlayer->aiLevel = 0;
+                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                }
                 break;
             case 2: // Highscore
+                GameGet()->pressedKeyCall = ViewHighscorePressedKeyCall; //Uebergebe die Tasteneingabe an das Highscore Menue
+                GameGet()->paintCall = ViewHighscorePaintCall; //Lasse das Highscore Menue darstellen
                 break;
             case 3: // Settings
                 GameGet()->pressedKeyCall = ViewSettingsPressedKeyCall; //Setze die Methode ViewSettingsPressedKeyCall um die Tasteneingabe in den Einstellungen entgegenzunehmen
