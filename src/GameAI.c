@@ -19,20 +19,87 @@ int CheckEmptySpaces(GameBoard gb) { //Funktion zum Ueberpruefen von freien Feld
     return emptySpaces;
 }
 
-void ComputerPlacement(GameBoard gb, char c, int difficulty) { //Sehr rustikale AI, die auf ein zufaelliges Feld ihr Symbol setzt
-    if(difficulty == 1) {
+void ComputerPlacement(GameBoard gb, char c, int difficulty) { 
+    if(difficulty == 1) { //Computer setzt auf ein zufälliges Feld
         srand(time(NULL));
         int column=0;
         int row=0;
-        if(CheckEmptySpaces(gb) > 0) { //Gilt nur, wenn es mehr als 1 freies Feld gibt (Spieler hat den letzten Zug)
+        
             do {
                 row=rand()%3;
                 column=rand()%3;
             } while(*GameBoardIndexOf(gb, column, row) != ' '); //Ist das Feld bereits belegt, wird ein anderes zufaellig ausgewaehlt
 
             GameBoardSet(gb, column, row, c); //Am Ende wird auf ein freies Feld das Symbol gesetzt
+
+    }else if(difficulty == 2){
+    // Prüfe, ob der Computer in einer Reihe, Spalte oder Diagonale zwei Zeichen hat und ein leeres Feld
+    // Wenn ja, setze das Zeichen auf das leere Feld, um den Sieg zu garantieren
+        for(int i=0; i<gb.columns; i++) {
+            if((*GameBoardIndexOf(gb, i, 0) == c) && (*GameBoardIndexOf(gb, i, 1) == c) && (*GameBoardIndexOf(gb, i, 2) == ' ')) {
+            GameBoardSet(gb, i, 2, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, i, 0) == c) && (*GameBoardIndexOf(gb, i, 1) == ' ') && (*GameBoardIndexOf(gb, i, 2) == c)) {
+            GameBoardSet(gb, i, 1, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, i, 0) == ' ') && (*GameBoardIndexOf(gb, i, 1) == c) && (*GameBoardIndexOf(gb, i, 2) == c)) {
+            GameBoardSet(gb, i, 0, c);
+            return;
+            }
         }
-    } else if(difficulty == 2) {
+        for(int i=0; i<gb.rows; i++) {
+            if((*GameBoardIndexOf(gb, 0, i) == c) && (*GameBoardIndexOf(gb, 1, i) == c) && (*GameBoardIndexOf(gb, 2, i) == ' ')) {
+            GameBoardSet(gb, 2, i, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, i) == c) && (*GameBoardIndexOf(gb, 1, i) == ' ') && (*GameBoardIndexOf(gb, 2, i) == c)) {
+            GameBoardSet(gb, 1, i, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, i) == ' ') && (*GameBoardIndexOf(gb, 1, i) == c) && (*GameBoardIndexOf(gb, 2, i) == c)) {
+            GameBoardSet(gb, 0, i, c);
+            return;
+            }
+        }
+            if((*GameBoardIndexOf(gb, 0, 0) == c) && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 2) == ' ')) {
+            GameBoardSet(gb, 2, 2, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, 0) == c) && (*GameBoardIndexOf(gb, 1, 1) == ' ') && (*GameBoardIndexOf(gb, 2, 2) == c)) {
+            GameBoardSet(gb, 1, 1, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, 0) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 2) == c)) {
+            GameBoardSet(gb, 0, 0, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, 2) == c) && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 0) == ' ')) {
+            GameBoardSet(gb, 2, 0, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, 2) == c) && (*GameBoardIndexOf(gb, 1, 1) == ' ') && (*GameBoardIndexOf(gb, 2, 0) == c)) {
+            GameBoardSet(gb, 1, 1, c);
+            return;
+            }
+            else if((*GameBoardIndexOf(gb, 0, 2) == ' ') && (*GameBoardIndexOf(gb, 1, 1) == c) && (*GameBoardIndexOf(gb, 2, 0) == c)) {
+            GameBoardSet(gb, 0, 2, c);
+            return;
+            }
+        // Wenn kein Zug gefunden wurde, der den Sieg garantiert, mache einen Zufallszug
+        srand(time(NULL));
+        int column=0;
+        int row=0;
+            do {
+                row=rand()%3;
+                column=rand()%3;
+            } while(*GameBoardIndexOf(gb, column, row) != ' '); //Ist das Feld bereits belegt, wird ein anderes zufällig ausgewählt
+
+            GameBoardSet(gb, column, row, c); //Am Ende wird auf ein freies Feld das Symbol gesetzt
+        
+    
+    }else if(difficulty == 3) {
     // Prüfe, ob der Computer in einer Reihe, Spalte oder Diagonale zwei Zeichen hat und ein leeres Feld
     // Wenn ja, setze das Zeichen auf das leere Feld, um den Sieg zu garantieren
         for(int i=0; i<gb.columns; i++) {
