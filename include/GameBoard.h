@@ -1,6 +1,5 @@
 /**
  * @file GameBoard.h
- * @author Fabian Grubba (grubba.fabiandavidjonah@fh-swf.de)
  * @brief
  * @version 0.1
  * @date 2022-12-21

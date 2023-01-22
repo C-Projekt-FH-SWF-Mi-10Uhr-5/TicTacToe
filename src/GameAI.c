@@ -32,7 +32,7 @@ void ComputerPlacement(GameBoard gb, char c, int difficulty) { //Sehr rustikale 
 
             GameBoardSet(gb, column, row, c); //Am Ende wird auf ein freies Feld das Symbol gesetzt
         }
-    } else if(difficulty == 2) {
+    } else if(difficulty == 2) { //Nur dieser Teil wurde von Adam Wegner erstellt
     // Prüfe, ob der Computer in einer Reihe, Spalte oder Diagonale zwei Zeichen hat und ein leeres Feld
     // Wenn ja, setze das Zeichen auf das leere Feld, um den Sieg zu garantieren
         for(int i=0; i<gb.columns; i++) {
