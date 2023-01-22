@@ -1,4 +1,12 @@
-
+/**
+ * @file main.c TicTacToe Game 
+ * @author Fabian Grubba, Paul Widholt, Adam Wegner (teilweise, im Code (GameAI.c) vermerkt)
+ * @version 1.0
+ * @date 2022-01-22
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include "../include/Logger.h"
 #include "../include/Game.h"
 #include "../include/ViewMenu.h"

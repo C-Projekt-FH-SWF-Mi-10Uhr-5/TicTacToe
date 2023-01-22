@@ -1,6 +1,5 @@
 /**
  * @file GameAI.h
- * @author Paul Widholt
  * @brief
  * @version 0.1
  * @date 2023-01-05
