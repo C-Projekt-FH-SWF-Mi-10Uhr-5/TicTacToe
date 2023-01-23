@@ -1,5 +1,4 @@
-#include "../include/Game.h"
-#include "../include/ViewMenu.h"
+#include "../include/ViewHighscore.h"
 
 #include <stdio.h>
 #include <curses.h>
@@ -11,7 +10,7 @@ int ViewHighscoreIndex = 0;
 void ViewHighscorePressedKeyCall(int pressedKey) {
     switch(pressedKey) {
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case 'l': 
             GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen

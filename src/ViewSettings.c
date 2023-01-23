@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <curses.h>
 
-char ViewSettingsAusgabe = ' '; // Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
+char ViewSettingsAusgabe = ' '; // Welche Cursortaste wurde gedrueckt
 int ViewSettingsIndex = 0; // Das aktuell ausgewaehlte Element in den Einstellungen
 
 int ViewSymbolIndex =  0; //Das aktuell ausgewaehlte Element in den Symbol Einstellungen
@@ -43,7 +43,7 @@ void ViewSettingsPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fuer
             ViewSettingsAusgabe = '>';
             break;
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case 'l':
             ViewSettingsIndex = 0; //Zuruecksetzen des Einstellungen Indexes 
@@ -146,7 +146,7 @@ void ViewSymbolPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fuer d
             ViewSettingsAusgabe = '>';
             break;
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case 'l':
             CheckSetSymbol = 0;
@@ -243,7 +243,7 @@ void ViewDifficultyPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fu
             ViewSettingsAusgabe = '>';
             break;
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case 'l':
             ViewDifficultyIndex = 0; //Zuruecksetzen des Symbol Indexes 
@@ -322,7 +322,7 @@ void ViewPlayerPressedKeyCall(int pressedKey) { //Nehme die Tasteneingabe fuer d
             ViewSettingsAusgabe = '>';
             break;
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case 'l':
             ViewPlayerIndex = 0; //Zuruecksetzen des Symbol Indexes 
