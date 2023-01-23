@@ -9,7 +9,7 @@
 
 #include <curses.h>
 
-char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
+char ViewBoardAusgabe = ' ';// Welche Cursortaste wurde gedrueckt
 int ViewBoardX, ViewBoardY;// Aktuell ausgewaeltes Feld im Spielbrett
 GameBoard ViewBoardGB;// Das darzustellende Spielbrett
 PlayerList* ViewBoardPL;
@@ -19,7 +19,7 @@ void ViewBoardShow(GameBoard gameBoard, PlayerList* playerList) {
     ViewBoardGB = gameBoard; // Setze das Spielbrett in die Darstellung
     ViewBoardPL = playerList;
     CheckPlacedSlot=0;
-    GameMasterInit(playerList, gameBoard);// TODO: Nicht loeschen der PlayerList erzeugt ein speicherloch!!!!!1!!11
+    GameMasterInit(playerList, gameBoard);
     GameGet()->paintCall = ViewBoardPaintCall;// Setze die Methode ViewBoardPaintCall um das Spielbrett darzustellen
     GameMasterNext();
 }
@@ -44,7 +44,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
         break;
     case 'q':
         GameMasterSaveWins();
-        GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+        GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
         break;
     case 'l':
         GameMasterSaveWins();
@@ -88,7 +88,7 @@ void ViewBoardPressedKeyCall(int pressedKey) {
     }
 }
 
-void ViewBoardPaintCall() {// Stelle das Spielbrett dar (TODO: Bessere darstellung)
+void ViewBoardPaintCall() {// Stelle das Spielbrett dar
     mvprintw(0, 0, "Steuern mit Pfeiltasten, Verlassen mit 'l', Beenden mit 'q'");
     //mvprintw(3, 5, "%c", ViewBoardAusgabe);
     mvprintw(3, 8, "Gespielte Spiele: %d", GameMasterGetCurrentPlayedGames());

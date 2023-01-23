@@ -9,8 +9,10 @@
 
 #include <curses.h>
 
-char ViewMenuAusgabe = ' ';// Welche Cursortaste wurde gedrueckt (TODO: Spaeter etfernen)
+char ViewMenuAusgabe = ' ';// Welche Cursortaste wurde gedrueckt
 int ViewMenuMenueIndex = 0;// Das aktuell ausgewaehlte Element im Hauptmenue
+GameBoard ViewMenuGameBoard;
+PlayerList* ViewMenuPlayerList = NULL;
 
 void ViewMenuShow() {
     GameGet()->pressedKeyCall = ViewMenuPressedKeyCall;// Setze die Methode ViewMenuPressedKeyCall um das Hauptmenue darzustellen
@@ -34,7 +36,7 @@ void ViewMenuPressedKeyCall(int pressedKey) {
             ViewMenuAusgabe = '>';
             break;
         case 'q':
-            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel (TODO: Spaeter etfernen)
+            GameGet()->quit = 1;// Stoppe die Gameloop und beende das Spiel
             break;
         case KEY_ENTER:
         case ' ':
@@ -42,26 +44,36 @@ void ViewMenuPressedKeyCall(int pressedKey) {
             switch (ViewMenuMenueIndex) {
             case 0: // Singleplayer
                 {
+                    GameBoardDestroy(&ViewMenuGameBoard); // Zerstore das vorherige
+                    ViewMenuGameBoard = GameBoardCreate(3, 3); // Erstelle ein 3x3 Spielfeld
+                    if (ViewMenuPlayerList != NULL) {
+                        PlayerListDestroy(&ViewMenuPlayerList);
+                    }
                     Player player;
                     player.symbol = Player1Symbol;
                     player.aiLevel = 0;
                     player.wins = 0;
-                    PlayerList* playerList = PlayerListCreate(player);
-                    Player* newPlayer = PlayerListAdd(playerList, Player2Symbol);
+                    ViewMenuPlayerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(ViewMenuPlayerList, Player2Symbol);
                     newPlayer->aiLevel = Difficulty;
-                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                    ViewBoardShow(ViewMenuGameBoard, ViewMenuPlayerList);// Setze 3x3 Spielfeld und zeige es
                 }
                 break;
             case 1: // Multiplayer
                 {
+                    GameBoardDestroy(&ViewMenuGameBoard); // Zerstore das vorherige
+                    ViewMenuGameBoard = GameBoardCreate(3, 3); // Erstelle ein 3x3 Spielfeld
+                    if (ViewMenuPlayerList != NULL) {
+                        PlayerListDestroy(&ViewMenuPlayerList);
+                    }
                     Player player;
                     player.symbol = Player1Symbol;
                     player.aiLevel = 0;
                     player.wins = 0;
-                    PlayerList* playerList = PlayerListCreate(player);
-                    Player* newPlayer = PlayerListAdd(playerList, Player2Symbol);
+                    ViewMenuPlayerList = PlayerListCreate(player);
+                    Player* newPlayer = PlayerListAdd(ViewMenuPlayerList, Player2Symbol);
                     newPlayer->aiLevel = 0;
-                    ViewBoardShow(GameBoardCreate(3, 3), playerList);// Erstelle, Setze 3x3 Spielfeld und zeige es TODO: Nicht loeschen vom Spielfeld erzeugt ein Speicherloch!!
+                    ViewBoardShow(ViewMenuGameBoard, ViewMenuPlayerList);// Setze 3x3 Spielfeld und zeige es
                 }
                 break;
             case 2: // Highscore

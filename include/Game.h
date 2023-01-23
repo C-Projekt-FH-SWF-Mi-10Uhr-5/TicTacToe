@@ -44,26 +44,56 @@ typedef struct {
 } Game;
 
 
+/**
+ * @brief Daten zum Speichern
+ * Wird automatisch am Spielanfang geladen und am Spielende gespeihert.
+ * Um einen Datenverlust beim Absturz zu verhindern wird auch nach einem gespeichert.
+ */
 typedef struct {
 
-double playtime;
+    /**
+     * @brief Speichert die Spieldauer
+     * @see GameGetPlaytime()
+     */
+    double playtime;
 
-int playedGames;
+    /**
+     * @brief Speichert die Anzahl der gespielten Spiele
+     */
+    int playedGames;
 
-int wins;
+    /**
+     * @brief Speichert die Anzahl der Gewinne
+     */
+    int wins;
 
 } SaveGame;
 
 
+/**
+ * @brief 
+ */
 typedef struct {
 
-unsigned int days;
+    /**
+     * @brief Die Anzahl der vergangenen Tage
+     */
+    unsigned int days;
 
-unsigned short hours;
+    /**
+     * @brief Die Anzahl der vergangenen Stunden
+     */
+    unsigned short hours;
 
-unsigned short minutes;
+    /**
+     * @brief Die Anzahl der vergangenen Minuten
+     */
+    unsigned short minutes;
 
-unsigned short seconds;
+    /**
+     * @brief Die Anzahl der vergangenen Sekunden
+     */
+    unsigned short seconds;
 
 } TimePeriod;
 
@@ -94,18 +124,46 @@ void GameStart();
  */
 void GameStop();
 
+/**
+ * @brief Gib die gespielten Spiele zurueck
+ * @return int 
+ */
 int GameGetPlayedGames();
 
+/**
+ * @brief Gib die Spielzeit zurueck
+ * @return double 
+ */
 double GameGetPlaytime();
 
+/**
+ * @brief Informirt Game darueber, dass ein Spiel gespielt wurde
+ */
 void GamePlayed();
 
+/**
+ * @brief Speichert die vom Spiel erhobenendaten
+ * @see SaveGame
+ */
 void GameSave();
 
+/**
+ * @brief Wandel die Zeit in fuer uns gut lesbare Einheiten um
+ * @param d 
+ * @return TimePeriod 
+ */
 TimePeriod GameConvertToPeriod(double d);
 
+/**
+ * @brief fuege die gewonnenen Spiele hinzu
+ * @param wins 
+ */
 void GameAddWins(int wins);
 
+/**
+ * @brief gib die gewonnenen Spiele zurueck
+ * @return int 
+ */
 int GameGetWins();
 
 #endif

@@ -15,13 +15,14 @@ Game *GameGet() {
 }
 
 void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
-    GameStartTimepoint = clock();
+    GameStartTimepoint = clock(); // Zeitpunkt vom Spielstart merken
 
+    // ===== Lade den Spielstand =====
     FILE *fp;
     fp = fopen(".tictactoe.save", "rb");
-    if(fp != NULL) {
+    if(fp != NULL) { // Konnte die Datei gelesen werden?
         fread(&GameSaveGame, sizeof(SaveGame), 1, fp);
-    } else {
+    } else { // Ansonsten Defaults setzen
         GameSaveGame.playtime = 0.0;
         GameSaveGame.playedGames = 0;
         GameSaveGame.wins = 0;
@@ -44,6 +45,7 @@ void GameInit(void (*pressedKeyCall)(int pressedKey), void (*paintCall)()) {
                             */
     curs_set(0);           // Cursor unsichtbar (0), sichtbar (1)
 
+    // ===== Game struktur einrichten =====
     Game *game = GameGet();
     game->quit = 0;
     game->pressedKeyCall = pressedKeyCall;
@@ -117,9 +119,10 @@ void GamePlayed() {
 }
 
 void GameSave() {
-    GameSaveGame.playtime = GameGetPlaytime();
-    GameStartTimepoint = clock();
+    GameSaveGame.playtime = GameGetPlaytime(); // Berechne und setze die Spielzeit
+    GameStartTimepoint = clock(); // Aktualisire die Spielzeit
 
+    // ===== Spielstand speichern =====
     FILE *fp;
     fp = fopen(".tictactoe.save", "wb");
     if(fp != NULL) {
@@ -131,25 +134,25 @@ void GameSave() {
 TimePeriod GameConvertToPeriod(double d) {
     TimePeriod period;
 
-    if (d > 86400) {
-        period.days = d / 86400;
-        d = ((int)d) % 86400;
+    if (d > 86400) { // Sind mehrere Tage vergangen?
+        period.days = d / 86400; // Tage berechnen
+        d = ((int)d) % 86400; // restliche Zeit berechnen
     }
     else {
         period.days = 0;
     }
 
-    if (d > 3600) {
-        period.hours =  d / 3600;
-        d = ((int)d) % 3600;
+    if (d > 3600) { // Sind mehrere Stunden vergangen?
+        period.hours =  d / 3600; // Stunden berechnen
+        d = ((int)d) % 3600; // restliche Zeit berechnen
     }
     else {
         period.hours = 0;
     }
 
-    if (d > 60) {
-        period.minutes = d / 60;
-        d = ((int)d) % 60;
+    if (d > 60) { // Sind mehrere Minuten vergangen?
+        period.minutes = d / 60; // Minuten berechnen
+        d = ((int)d) % 60; // restliche Zeit berechnen
     }
     else {
         period.minutes = 0;
@@ -161,10 +164,10 @@ TimePeriod GameConvertToPeriod(double d) {
 }
 
 void GameAddWins(int wins) {
-    GameSaveGame.wins+=wins;
+    GameSaveGame.wins+=wins; // fuege die gewonnenen Spiele hinzu
     GameSave();
 }
 
 int GameGetWins() {
-    return GameSaveGame.wins;
+    return GameSaveGame.wins; // gib die gewonnenen Spiele zurueck
 }

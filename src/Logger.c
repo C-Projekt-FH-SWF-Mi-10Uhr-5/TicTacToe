@@ -11,13 +11,13 @@
     void LoggerInit() {
         LOGGER_FILE = fopen(".tictactoe.log", "a");
         if(LOGGER_FILE == NULL) {
-            printf("ERROR: Logger can not create logfile!!!\n");
+            printf("ERROR: Logger can not create logfile!!!\n"); // Versuche daraufhinzuweisen, dass das Logfile nicht erstellt werden konnte
         }
-        LoggerLog("Logger", "ini", "TicTacToe start !");
+        LoggerLog("Logger", "ini", "TicTacToe start !"); // Informire im Logfile: Das Spiel wurde gestartet
     }
     
     void LoggerClose() {
-        LoggerLog("Logger", "end", "TicTacToe end !");
+        LoggerLog("Logger", "end", "TicTacToe end !"); // Informire im Logfile: Das Spiel wurde beendet
         fclose(LOGGER_FILE);
     }
 
@@ -26,12 +26,12 @@
         struct tm *info;
         char buffer[20];
 
-        time( &rawtime );
+        time( &rawtime ); // ermittle die Zeit
         info = localtime( &rawtime );
-        strftime(buffer,20,"%Y%m%d %H:%M", info);
+        strftime(buffer,20,"%Y%m%d %H:%M", info); // benutze ein sinnvolles Zeitformat fuer das Logfile
 
         if(LOGGER_FILE != NULL) {
-            fprintf(LOGGER_FILE, "%s %s %s : %s\n", buffer, mod, lvl, msg);
+            fprintf(LOGGER_FILE, "%s %s %s : %s\n", buffer, mod, lvl, msg); // erstelle den Logeintrag
         }
     }
 
@@ -40,40 +40,41 @@
         struct tm *info;
         char buffer[20];
 
-        time( &rawtime );
+        time( &rawtime ); // ermittle die Zeit
         info = localtime( &rawtime );
-        strftime(buffer,20,"%Y%m%d %H:%M", info);
+        strftime(buffer,20,"%Y%m%d %H:%M", info); // benutze ein sinnvolles Zeitformat fuer das Logfile
 
         if(LOGGER_FILE != NULL) {
-            fprintf(LOGGER_FILE, "%s %s %s : ", buffer, mod, lvl);
+            fprintf(LOGGER_FILE, "%s %s %s : ", buffer, mod, lvl); // erstelle den Anfang eines Logeintrags
         }
     }
 
     void LoggerString(char* msg) {
         if(LOGGER_FILE != NULL) {
-            fprintf(LOGGER_FILE, "%s", msg);
+            fprintf(LOGGER_FILE, "%s", msg); // Fuege dem Logeintrag eine Zeichenkette hinzu
         }
     }
 
     void LoggerChar(char c) {
         if(LOGGER_FILE != NULL) {
-            if (isprint(c)) {
-                fprintf(LOGGER_FILE, "'%c'", c);
-            } else {
-                fprintf(LOGGER_FILE, "'%d'", c);
+            if (isprint(c)) { // Ist das Zeichen druckbar?
+                fprintf(LOGGER_FILE, "'%c'", c); // Fuege dem Logeintrag ein Zeichen hinzu
+            }
+            else {
+                fprintf(LOGGER_FILE, "'%d'", c); // Fuege dem Logeintrag das Zeichen als Zahl hinzu (weil nicht druckbar)
             }
         }
     }
 
     void LoggerInt(int i) {
         if(LOGGER_FILE != NULL) {
-            fprintf(LOGGER_FILE, "%d", i);
+            fprintf(LOGGER_FILE, "%d", i); // Fuege dem Logeintrag eine Ganzzahl hinzu
         }
     }
 
     void LoggerEnd() {
         if(LOGGER_FILE != NULL) {
-            fprintf(LOGGER_FILE, "\n");
+            fprintf(LOGGER_FILE, "\n"); // Schliesse den Logeintrag
         }
     }
 

@@ -8,8 +8,8 @@
 #ifndef VIEWHIGHSCORE_H
 #define VIEWHIGHSCORE_H
 
-#include "../include/Game.h"
-#include "../include/ViewMenu.h"
+#include "Game.h"
+#include "ViewMenu.h"
 
 #include <stdio.h>
 #include <curses.h>
